@@ -23,3 +23,6 @@ C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Net.H
 C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Net.Http.Primitives.xml
 C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.csproj.App.config
 C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.csproj.CopyComplete
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Firebase.Auth.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Diagnostics.DiagnosticSource.xml
