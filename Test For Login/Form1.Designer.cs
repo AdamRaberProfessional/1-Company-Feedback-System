@@ -28,26 +28,26 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.userNameBox = new System.Windows.Forms.TextBox();
+			this.passwordBox = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
 			this.PasswordLabel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
-			// textBox1
+			// userNameBox
 			// 
-			this.textBox1.Location = new System.Drawing.Point(286, 67);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(171, 22);
-			this.textBox1.TabIndex = 0;
+			this.userNameBox.Location = new System.Drawing.Point(286, 67);
+			this.userNameBox.Name = "userNameBox";
+			this.userNameBox.Size = new System.Drawing.Size(171, 22);
+			this.userNameBox.TabIndex = 0;
 			// 
-			// textBox2
+			// passwordBox
 			// 
-			this.textBox2.Location = new System.Drawing.Point(286, 95);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(171, 22);
-			this.textBox2.TabIndex = 1;
+			this.passwordBox.Location = new System.Drawing.Point(286, 95);
+			this.passwordBox.Name = "passwordBox";
+			this.passwordBox.Size = new System.Drawing.Size(171, 22);
+			this.passwordBox.TabIndex = 1;
 			// 
 			// label1
 			// 
@@ -73,7 +73,7 @@
 			this.PasswordLabel.AutoSize = true;
 			this.PasswordLabel.Location = new System.Drawing.Point(100, 100);
 			this.PasswordLabel.Name = "PasswordLabel";
-			this.PasswordLabel.Size = new System.Drawing.Size(86, 21);
+			this.PasswordLabel.Size = new System.Drawing.Size(69, 17);
 			this.PasswordLabel.TabIndex = 4;
 			this.PasswordLabel.Text = "Password";
 			// 
@@ -85,8 +85,8 @@
 			this.Controls.Add(this.PasswordLabel);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.label1);
-			this.Controls.Add(this.textBox2);
-			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.passwordBox);
+			this.Controls.Add(this.userNameBox);
 			this.Name = "Form1";
 			this.Text = "Form1";
 			this.ResumeLayout(false);
@@ -96,8 +96,8 @@
 
 		#endregion
 
-		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.TextBox textBox2;
+		private System.Windows.Forms.TextBox userNameBox;
+		private System.Windows.Forms.TextBox passwordBox;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Label PasswordLabel;

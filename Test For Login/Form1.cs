@@ -19,7 +19,9 @@ namespace Test_For_Login
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show("You are logged in");
+			string userName = userNameBox.Text;
+			string password = passwordBox.Text;
+			MessageBox.Show($"{userName} {password}");
 		}
 	}
 }

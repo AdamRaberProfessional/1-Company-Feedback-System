@@ -8,3 +8,18 @@ C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Log
 C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.csproj.CoreCompileInputs.cache
 C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.exe
 C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.pdb
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\FireSharp.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Microsoft.Threading.Tasks.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Microsoft.Threading.Tasks.Extensions.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Newtonsoft.Json.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Net.Http.Extensions.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Net.Http.Primitives.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Microsoft.Threading.Tasks.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Microsoft.Threading.Tasks.Extensions.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Newtonsoft.Json.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Net.Http.Extensions.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Net.Http.Primitives.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.csproj.App.config
+C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.csproj.CopyComplete
