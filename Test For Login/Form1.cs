@@ -14,24 +14,27 @@ namespace Test_For_Login
 {
 	public partial class Form1 : Form
 	{
+		private FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
+		private Firebase.Auth.User firebaseUser;
+		public Firebase.Auth.User getFirebaseUser()
+		{
+			return firebaseUser;
+		}
 		public Form1()
 		{
 			InitializeComponent();
 		}
-
-		
 
 
 		private async void button1_Click(object sender, EventArgs e)
 		{
 			string email = emailBox.Text;
 			string password = passwordBox.Text;
-			var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
             try
 			{
 				var userCredential = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
-				var user = userCredential.User;
-				var userEmail = user.Email;
+				firebaseUser = userCredential.User;
+				var userEmail = firebaseUser.Email;
 				MessageBox.Show($"signed in as {userEmail}");
 
 			}
@@ -55,9 +58,6 @@ namespace Test_For_Login
                 {
 					MessageBox.Show(error.Message);
 				}
-				
-				
-
 			}
 			
 		}
@@ -66,11 +66,12 @@ namespace Test_For_Login
 		{
 			string email = emailBox.Text;
 			string password = passwordBox.Text;
-			var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
 			try
 			{
-				var login = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
-				MessageBox.Show($"Account created successfully");
+				var userCredential = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
+				firebaseUser = userCredential.User;
+				MessageBox.Show($"Account created for {firebaseUser.Email}");
+				
 			}catch(Exception error)
             {
 				if (error.Message.Contains("INVALID_EMAIL"))
