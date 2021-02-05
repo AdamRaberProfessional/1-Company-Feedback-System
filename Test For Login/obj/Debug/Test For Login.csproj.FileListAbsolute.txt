@@ -1,0 +1,10 @@
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Test For Login.exe.config
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Test For Login.exe
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Test For Login.pdb
+C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.csprojAssemblyReference.cache
+C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test_For_Login.Form1.resources
+C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test_For_Login.Properties.Resources.resources
+C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.csproj.GenerateResource.cache
+C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.csproj.CoreCompileInputs.cache
+C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.exe
+C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.pdb
