@@ -15,8 +15,8 @@ namespace Test_For_Login
 	public partial class Form1 : Form
 	{
 		private FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
-		private Firebase.Auth.User firebaseUser;
 		private string pageState = "signIn";
+		private Firebase.Auth.User firebaseUser;
 		public Firebase.Auth.User GetFirebaseUser()
 		{
 			return firebaseUser;
@@ -67,7 +67,7 @@ namespace Test_For_Login
             }
             else
             {
-				if(textBox1.Text == passwordBox.Text) {
+				if(verifyPasswordBox.Text == passwordBox.Text) {
 					try
 					{
 						var userCredential = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
@@ -118,21 +118,21 @@ namespace Test_For_Login
 			if (pageState == "signIn")
 			{
 				pageState = "createAccount";
-				label2.Visible = true;
-				textBox1.Visible = true;
-				button3.Text = "Sign in";
-				label3.Text = "Already have an account? Click here to sign in";
-				button1.Text = "Create Account";
+				verifyPasswordLabel.Visible = true;
+				verifyPasswordBox.Visible = true;
+				createAccountButton.Text = "Sign in";
+				createAccountLabel.Text = "Already have an account? Click here to sign in";
+				loginButton.Text = "Create Account";
 			}
             else
             {
 				pageState = "signIn";
-				textBox1.Text = ""; 
-				label2.Visible = false;
-				textBox1.Visible = false;
-				button3.Text = "Create Account";
-				button1.Text = "Login";
-				label3.Text = "Don't have an account? Click here to create one";
+				verifyPasswordBox.Text = ""; 
+				verifyPasswordLabel.Visible = false;
+				verifyPasswordBox.Visible = false;
+				createAccountButton.Text = "Create Account";
+				loginButton.Text = "Login";
+				createAccountLabel.Text = "Don't have an account? Click here to create one";
 			}
 
         }
