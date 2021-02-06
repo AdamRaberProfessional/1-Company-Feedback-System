@@ -149,5 +149,17 @@ namespace Test_For_Login
 			panel1.Visible = false;
 			panel2.Visible = true;
 		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			//authProvider.Dispose();
+			panel2.Visible = false;
+			panel1.Visible = true;
+		}
+		private void CreateNewAuthProvider()
+		{
+			
+			
+		}
 	}
 }
