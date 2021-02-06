@@ -14,6 +14,7 @@ namespace Test_For_Login
 {
 	public partial class Form1 : Form
 	{
+		// Initialize firebase auth and create ability to get the current firebaseUser anywhere in the application.
 		private FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
 		private string pageState = "signIn";
 		private Firebase.Auth.User firebaseUser;
@@ -35,6 +36,7 @@ namespace Test_For_Login
             {
 				try
 				{
+					// Sign user in and set firebaseUser as the newly signed in account.
 					var userCredential = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
 					firebaseUser = userCredential.User;
 					var userEmail = firebaseUser.Email;
@@ -70,6 +72,7 @@ namespace Test_For_Login
 				if(verifyPasswordBox.Text == passwordBox.Text) {
 					try
 					{
+						// Create account and set firebaseUser as the newly created account.
 						var userCredential = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
 						firebaseUser = userCredential.User;
 						MessageBox.Show($"Account created for {firebaseUser.Email}");
@@ -115,6 +118,7 @@ namespace Test_For_Login
 
         private void button3_Click(object sender, EventArgs e)
         {
+			// Change panel1 layout based on the state of the screen.
 			if (pageState == "signIn")
 			{
 				pageState = "createAccount";
