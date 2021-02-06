@@ -141,5 +141,11 @@ namespace Test_For_Login
         {
 
         }
-    }
+
+		private void ShowPageButton_Click(object sender, EventArgs e)
+		{
+			NewPage np = new NewPage();
+			np.Show();
+		}
+	}
 }
