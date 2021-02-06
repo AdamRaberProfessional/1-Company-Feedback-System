@@ -144,8 +144,10 @@ namespace Test_For_Login
 
 		private void ShowPageButton_Click(object sender, EventArgs e)
 		{
-			NewPage np = new NewPage();
-			np.Show();
+			//NewPage np = new NewPage();
+			//np.Show();
+			panel1.Visible = false;
+			panel2.Visible = true;
 		}
 	}
 }
