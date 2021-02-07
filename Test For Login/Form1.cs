@@ -15,13 +15,31 @@ namespace Test_For_Login
 	public partial class Form1 : Form
 	{
 		// Initialize firebase auth and create ability to get the current firebaseUser anywhere in the application.
-		private FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
+		private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
 		private string pageState = "signIn";
 		private Firebase.Auth.User firebaseUser;
-		public Firebase.Auth.User GetFirebaseUser()
-		{
-			return firebaseUser;
-		}
+
+		private void ChangePanel(int panelNumber)
+        {
+			// Change the panel according to the panelNumber given. 
+			if(panelNumber == 1)
+            {
+				panel1.Visible = true;
+				panel2.Visible = false;
+			}else if(panelNumber == 2)
+            {
+				panel1.Visible = false;
+				panel2.Visible = true;
+            }
+        }
+
+		private void UserSignedIn()
+        {
+			//change to panel2 and show that the user is signed in.
+			ChangePanel(2);
+			accountInfoLabel.Text = $"Signed in as {firebaseUser.Email}";
+        }
+
 		public Form1()
 		{
 			InitializeComponent();
@@ -39,8 +57,7 @@ namespace Test_For_Login
 					// Sign user in and set firebaseUser as the newly signed in account.
 					var userCredential = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
 					firebaseUser = userCredential.User;
-					var userEmail = firebaseUser.Email;
-					MessageBox.Show($"signed in as {userEmail}");
+					UserSignedIn();
 
 				}
 				catch (Exception error)
@@ -75,8 +92,7 @@ namespace Test_For_Login
 						// Create account and set firebaseUser as the newly created account.
 						var userCredential = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
 						firebaseUser = userCredential.User;
-						MessageBox.Show($"Account created for {firebaseUser.Email}");
-
+						UserSignedIn();
 					}
 					catch (Exception error)
 					{
@@ -150,20 +166,29 @@ namespace Test_For_Login
 		{
 			//NewPage np = new NewPage();
 			//np.Show();
-			panel1.Visible = false;
-			panel2.Visible = true;
+			ChangePanel(2);
 		}
 
 		private void button2_Click(object sender, EventArgs e)
 		{
 			//authProvider.Dispose();
-			panel2.Visible = false;
-			panel1.Visible = true;
-		}
-		private void CreateNewAuthProvider()
-		{
-			
 			
 		}
-	}
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void signOutButton_Click(object sender, EventArgs e)
+        {
+			ChangePanel(1);
+			firebaseUser = null;
+		}
+    }
 }

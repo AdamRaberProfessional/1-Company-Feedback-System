@@ -37,10 +37,10 @@
             this.verifyPasswordBox = new System.Windows.Forms.TextBox();
             this.verifyPasswordLabel = new System.Windows.Forms.Label();
             this.createAccountLabel = new System.Windows.Forms.Label();
-            this.showPageButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.newPanelButton = new System.Windows.Forms.Button();
+            this.accountInfoLabel = new System.Windows.Forms.Label();
+            this.signOutButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -48,7 +48,7 @@
             // emailBox
             // 
             this.emailBox.Location = new System.Drawing.Point(388, 10);
-            this.emailBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.emailBox.Margin = new System.Windows.Forms.Padding(6);
             this.emailBox.Name = "emailBox";
             this.emailBox.Size = new System.Drawing.Size(338, 38);
             this.emailBox.TabIndex = 0;
@@ -56,7 +56,7 @@
             // passwordBox
             // 
             this.passwordBox.Location = new System.Drawing.Point(388, 64);
-            this.passwordBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.passwordBox.Margin = new System.Windows.Forms.Padding(6);
             this.passwordBox.Name = "passwordBox";
             this.passwordBox.Size = new System.Drawing.Size(338, 38);
             this.passwordBox.TabIndex = 1;
@@ -74,7 +74,7 @@
             // loginButton
             // 
             this.loginButton.Location = new System.Drawing.Point(388, 209);
-            this.loginButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.loginButton.Margin = new System.Windows.Forms.Padding(6);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(338, 66);
             this.loginButton.TabIndex = 3;
@@ -95,7 +95,7 @@
             // createAccountButton
             // 
             this.createAccountButton.Location = new System.Drawing.Point(794, 74);
-            this.createAccountButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.createAccountButton.Margin = new System.Windows.Forms.Padding(4);
             this.createAccountButton.Name = "createAccountButton";
             this.createAccountButton.Size = new System.Drawing.Size(346, 54);
             this.createAccountButton.TabIndex = 6;
@@ -106,7 +106,7 @@
             // verifyPasswordBox
             // 
             this.verifyPasswordBox.Location = new System.Drawing.Point(388, 120);
-            this.verifyPasswordBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.verifyPasswordBox.Margin = new System.Windows.Forms.Padding(4);
             this.verifyPasswordBox.Name = "verifyPasswordBox";
             this.verifyPasswordBox.Size = new System.Drawing.Size(338, 38);
             this.verifyPasswordBox.TabIndex = 7;
@@ -134,20 +134,8 @@
             this.createAccountLabel.TabIndex = 9;
             this.createAccountLabel.Text = "Don\'t have an account? Click here to create one ";
             // 
-            // showPageButton
-            // 
-            this.showPageButton.Location = new System.Drawing.Point(794, 138);
-            this.showPageButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.showPageButton.Name = "showPageButton";
-            this.showPageButton.Size = new System.Drawing.Size(346, 54);
-            this.showPageButton.TabIndex = 10;
-            this.showPageButton.Text = "Show New Page";
-            this.showPageButton.UseVisualStyleBackColor = true;
-            this.showPageButton.Click += new System.EventHandler(this.ShowPageButton_Click);
-            // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.showPageButton);
             this.panel1.Controls.Add(this.createAccountLabel);
             this.panel1.Controls.Add(this.verifyPasswordLabel);
             this.panel1.Controls.Add(this.verifyPasswordBox);
@@ -158,30 +146,43 @@
             this.panel1.Controls.Add(this.passwordBox);
             this.panel1.Controls.Add(this.emailBox);
             this.panel1.Location = new System.Drawing.Point(8, 14);
-            this.panel1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.panel1.Margin = new System.Windows.Forms.Padding(6);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1512, 298);
             this.panel1.TabIndex = 11;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.newPanelButton);
+            this.panel2.Controls.Add(this.accountInfoLabel);
+            this.panel2.Controls.Add(this.signOutButton);
             this.panel2.Location = new System.Drawing.Point(15, 358);
-            this.panel2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.panel2.Margin = new System.Windows.Forms.Padding(6);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1502, 407);
             this.panel2.TabIndex = 12;
             this.panel2.Visible = false;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
-            // newPanelButton
+            // accountInfoLabel
             // 
-            this.newPanelButton.Location = new System.Drawing.Point(466, 101);
-            this.newPanelButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.newPanelButton.Name = "newPanelButton";
-            this.newPanelButton.Size = new System.Drawing.Size(342, 45);
-            this.newPanelButton.TabIndex = 0;
-            this.newPanelButton.Text = "New pAnel Button";
-            this.newPanelButton.UseVisualStyleBackColor = true;
+            this.accountInfoLabel.AutoSize = true;
+            this.accountInfoLabel.Location = new System.Drawing.Point(317, 86);
+            this.accountInfoLabel.Name = "accountInfoLabel";
+            this.accountInfoLabel.Size = new System.Drawing.Size(235, 32);
+            this.accountInfoLabel.TabIndex = 1;
+            this.accountInfoLabel.Text = "No user signed in";
+            this.accountInfoLabel.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // signOutButton
+            // 
+            this.signOutButton.Location = new System.Drawing.Point(301, 201);
+            this.signOutButton.Margin = new System.Windows.Forms.Padding(6);
+            this.signOutButton.Name = "signOutButton";
+            this.signOutButton.Size = new System.Drawing.Size(342, 45);
+            this.signOutButton.TabIndex = 0;
+            this.signOutButton.Text = "Sign Out";
+            this.signOutButton.UseVisualStyleBackColor = true;
+            this.signOutButton.Click += new System.EventHandler(this.signOutButton_Click);
             // 
             // Form1
             // 
@@ -190,12 +191,13 @@
             this.ClientSize = new System.Drawing.Size(1600, 810);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
 		}
@@ -211,10 +213,10 @@
         private System.Windows.Forms.TextBox verifyPasswordBox;
         private System.Windows.Forms.Label verifyPasswordLabel;
         private System.Windows.Forms.Label createAccountLabel;
-		private System.Windows.Forms.Button showPageButton;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Panel panel2;
-		private System.Windows.Forms.Button newPanelButton;
-	}
+		private System.Windows.Forms.Button signOutButton;
+        private System.Windows.Forms.Label accountInfoLabel;
+    }
 }
 
