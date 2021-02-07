@@ -8,7 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Firebase.Database;
+using Firebase.Database.Query;
+using Newtonsoft.Json;
 
 namespace Test_For_Login
 {
@@ -16,6 +18,7 @@ namespace Test_For_Login
 	{
 		// Initialize firebase auth and create ability to get the current firebaseUser anywhere in the application.
 		private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
+		private readonly FirebaseClient databaseHandler = new FirebaseClient("https://cis-attempt-1-default-rtdb.firebaseio.com/");
 		private string pageState = "signIn";
 		private Firebase.Auth.User firebaseUser;
 
@@ -45,13 +48,13 @@ namespace Test_For_Login
 			InitializeComponent();
 		}
 
-
 		private async void button1_Click(object sender, EventArgs e)
 		{
+			ChangePanel(2);
 			string email = emailBox.Text;
 			string password = passwordBox.Text;
 			if (pageState == "signIn")
-            {
+			{
 				try
 				{
 					// Sign user in and set firebaseUser as the newly signed in account.
@@ -83,10 +86,11 @@ namespace Test_For_Login
 						MessageBox.Show(error.Message);
 					}
 				}
-            }
-            else
-            {
-				if(verifyPasswordBox.Text == passwordBox.Text) {
+			}
+			else
+			{
+				if (verifyPasswordBox.Text == passwordBox.Text)
+				{
 					try
 					{
 						// Create account and set firebaseUser as the newly created account.
@@ -118,19 +122,13 @@ namespace Test_For_Login
 						}
 
 					}
-                }
-                else
-                {
+				}
+				else
+				{
 					MessageBox.Show("Passwords must match.");
-                }
-
+				}
 			}
-			
-           
-			
 		}
-
-		
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -157,38 +155,50 @@ namespace Test_For_Login
 
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
+        
 
-        }
-
-		private void ShowPageButton_Click(object sender, EventArgs e)
-		{
-			//NewPage np = new NewPage();
-			//np.Show();
-			ChangePanel(2);
-		}
-
-		private void button2_Click(object sender, EventArgs e)
-		{
-			//authProvider.Dispose();
-			
-		}
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void signOutButton_Click(object sender, EventArgs e)
         {
 			ChangePanel(1);
 			firebaseUser = null;
 		}
-    }
+
+		// graveyard of unused action functions starts here
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+		private void label2_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private async void enterMessageButton_Click(object sender, EventArgs e)
+        {
+			try
+			{
+				var myObject = new { message = databaseMessageBox.Text }; 
+				var newObject = new { newmessage = firebaseUser.Email };
+				var convertedObject = JsonConvert.SerializeObject(newObject);
+				MessageBox.Show(convertedObject);
+				await databaseHandler.Child("ljalksfd").PutAsync(convertedObject);
+			}
+			catch (Exception excp)
+            {
+				MessageBox.Show(excp.Message);
+            }
+        }
+
+		private void label1_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void panel2_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
+	}
 }

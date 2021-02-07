@@ -41,6 +41,9 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.accountInfoLabel = new System.Windows.Forms.Label();
             this.signOutButton = new System.Windows.Forms.Button();
+            this.databaseMessageLabel = new System.Windows.Forms.Label();
+            this.databaseMessageBox = new System.Windows.Forms.TextBox();
+            this.addDataButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -153,6 +156,9 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.addDataButton);
+            this.panel2.Controls.Add(this.databaseMessageBox);
+            this.panel2.Controls.Add(this.databaseMessageLabel);
             this.panel2.Controls.Add(this.accountInfoLabel);
             this.panel2.Controls.Add(this.signOutButton);
             this.panel2.Location = new System.Drawing.Point(15, 358);
@@ -183,6 +189,33 @@
             this.signOutButton.Text = "Sign Out";
             this.signOutButton.UseVisualStyleBackColor = true;
             this.signOutButton.Click += new System.EventHandler(this.signOutButton_Click);
+            // 
+            // databaseMessageLabel
+            // 
+            this.databaseMessageLabel.AutoSize = true;
+            this.databaseMessageLabel.Location = new System.Drawing.Point(895, 112);
+            this.databaseMessageLabel.Name = "databaseMessageLabel";
+            this.databaseMessageLabel.Size = new System.Drawing.Size(394, 32);
+            this.databaseMessageLabel.TabIndex = 2;
+            this.databaseMessageLabel.Text = "Enter database message here";
+            // 
+            // databaseMessageBox
+            // 
+            this.databaseMessageBox.Location = new System.Drawing.Point(901, 173);
+            this.databaseMessageBox.Name = "databaseMessageBox";
+            this.databaseMessageBox.Size = new System.Drawing.Size(388, 38);
+            this.databaseMessageBox.TabIndex = 3;
+            this.databaseMessageBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // addDataButton
+            // 
+            this.addDataButton.Location = new System.Drawing.Point(899, 236);
+            this.addDataButton.Name = "addDataButton";
+            this.addDataButton.Size = new System.Drawing.Size(390, 60);
+            this.addDataButton.TabIndex = 4;
+            this.addDataButton.Text = "Add to database";
+            this.addDataButton.UseVisualStyleBackColor = true;
+            this.addDataButton.Click += new System.EventHandler(this.enterMessageButton_Click);
             // 
             // Form1
             // 
@@ -217,6 +250,9 @@
 		private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.Button signOutButton;
         private System.Windows.Forms.Label accountInfoLabel;
+        private System.Windows.Forms.TextBox databaseMessageBox;
+        private System.Windows.Forms.Label databaseMessageLabel;
+        private System.Windows.Forms.Button addDataButton;
     }
 }
 
