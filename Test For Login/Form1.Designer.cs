@@ -148,7 +148,7 @@
             this.panel1.Controls.Add(this.emailLabel);
             this.panel1.Controls.Add(this.passwordBox);
             this.panel1.Controls.Add(this.emailBox);
-            this.panel1.Location = new System.Drawing.Point(8, 14);
+            this.panel1.Location = new System.Drawing.Point(26, 50);
             this.panel1.Margin = new System.Windows.Forms.Padding(6);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1512, 298);
@@ -161,7 +161,7 @@
             this.panel2.Controls.Add(this.databaseMessageLabel);
             this.panel2.Controls.Add(this.accountInfoLabel);
             this.panel2.Controls.Add(this.signOutButton);
-            this.panel2.Location = new System.Drawing.Point(15, 358);
+            this.panel2.Location = new System.Drawing.Point(26, 379);
             this.panel2.Margin = new System.Windows.Forms.Padding(6);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1502, 407);

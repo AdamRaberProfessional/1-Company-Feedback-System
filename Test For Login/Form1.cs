@@ -179,11 +179,12 @@ namespace Test_For_Login
         {
 			try
 			{
-				var myObject = new { message = databaseMessageBox.Text }; 
-				var newObject = new { newmessage = firebaseUser.Email };
-				var convertedObject = JsonConvert.SerializeObject(newObject);
-				MessageBox.Show(convertedObject);
-				await databaseHandler.Child("ljalksfd").PutAsync(convertedObject);
+				string userId = firebaseUser.LocalId;
+				var myObject = new { inputedData = databaseMessageBox.Text,
+									 email = firebaseUser.Email}; 
+				var convertedObject = JsonConvert.SerializeObject(myObject);
+				await databaseHandler.Child(userId).Child("MessageBoxInfo").PutAsync(convertedObject);
+				MessageBox.Show($"firebase updated with value {databaseMessageBox.Text}");
 			}
 			catch (Exception excp)
             {
