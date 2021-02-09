@@ -38,7 +38,6 @@
             this.verifyPasswordLabel = new System.Windows.Forms.Label();
             this.createAccountLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.accountTypeBox = new System.Windows.Forms.TextBox();
             this.accountTypeLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.addDataButton = new System.Windows.Forms.Button();
@@ -46,6 +45,7 @@
             this.databaseMessageLabel = new System.Windows.Forms.Label();
             this.accountInfoLabel = new System.Windows.Forms.Label();
             this.signOutButton = new System.Windows.Forms.Button();
+            this.accountTypeBox = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -127,7 +127,6 @@
             this.verifyPasswordLabel.TabIndex = 8;
             this.verifyPasswordLabel.Text = "Verify Password";
             this.verifyPasswordLabel.Visible = false;
-       
             // 
             // createAccountLabel
             // 
@@ -158,14 +157,6 @@
             this.panel1.Size = new System.Drawing.Size(1512, 357);
             this.panel1.TabIndex = 11;
             // 
-            // accountTypeBox
-            // 
-            this.accountTypeBox.Location = new System.Drawing.Point(388, 169);
-            this.accountTypeBox.Name = "accountTypeBox";
-            this.accountTypeBox.Size = new System.Drawing.Size(338, 38);
-            this.accountTypeBox.TabIndex = 12;
-            this.accountTypeBox.Visible = false;
-            // 
             // accountTypeLabel
             // 
             this.accountTypeLabel.AutoSize = true;
@@ -189,7 +180,6 @@
             this.panel2.Size = new System.Drawing.Size(1502, 359);
             this.panel2.TabIndex = 12;
             this.panel2.Visible = false;
-          
             // 
             // addDataButton
             // 
@@ -207,7 +197,6 @@
             this.databaseMessageBox.Name = "databaseMessageBox";
             this.databaseMessageBox.Size = new System.Drawing.Size(388, 38);
             this.databaseMessageBox.TabIndex = 3;
-            
             // 
             // databaseMessageLabel
             // 
@@ -226,7 +215,6 @@
             this.accountInfoLabel.Size = new System.Drawing.Size(235, 32);
             this.accountInfoLabel.TabIndex = 1;
             this.accountInfoLabel.Text = "No user signed in";
-            
             // 
             // signOutButton
             // 
@@ -238,6 +226,20 @@
             this.signOutButton.Text = "Sign Out";
             this.signOutButton.UseVisualStyleBackColor = true;
             this.signOutButton.Click += new System.EventHandler(this.signOutButton_Click);
+            // 
+            // accountTypeBox
+            // 
+            this.accountTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.accountTypeBox.FormattingEnabled = true;
+            this.accountTypeBox.Items.AddRange(new object[] {
+            "Admin",
+            "User"});
+            this.accountTypeBox.Location = new System.Drawing.Point(388, 173);
+            this.accountTypeBox.MaxDropDownItems = 2;
+            this.accountTypeBox.Name = "accountTypeBox";
+            this.accountTypeBox.Size = new System.Drawing.Size(338, 39);
+            this.accountTypeBox.TabIndex = 13;
+            this.accountTypeBox.Visible = false;
             // 
             // Form1
             // 
@@ -275,8 +277,8 @@
         private System.Windows.Forms.TextBox databaseMessageBox;
         private System.Windows.Forms.Label databaseMessageLabel;
         private System.Windows.Forms.Button addDataButton;
-        private System.Windows.Forms.TextBox accountTypeBox;
         private System.Windows.Forms.Label accountTypeLabel;
+        private System.Windows.Forms.ComboBox accountTypeBox;
     }
 }
 

@@ -192,6 +192,8 @@ namespace Test_For_Login
 				//var convertedObject = JsonConvert.SerializeObject(myObject);
 				//await databaseHandler.Child(userId).Child("MessageBoxInfo").PutAsync(convertedObject);
 				//MessageBox.Show($"firebase updated with value {databaseMessageBox.Text}");
+
+
 			}
 
 			catch (Exception excp)
