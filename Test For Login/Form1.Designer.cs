@@ -38,12 +38,14 @@
             this.verifyPasswordLabel = new System.Windows.Forms.Label();
             this.createAccountLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.accountTypeBox = new System.Windows.Forms.TextBox();
+            this.accountTypeLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.addDataButton = new System.Windows.Forms.Button();
+            this.databaseMessageBox = new System.Windows.Forms.TextBox();
+            this.databaseMessageLabel = new System.Windows.Forms.Label();
             this.accountInfoLabel = new System.Windows.Forms.Label();
             this.signOutButton = new System.Windows.Forms.Button();
-            this.databaseMessageLabel = new System.Windows.Forms.Label();
-            this.databaseMessageBox = new System.Windows.Forms.TextBox();
-            this.addDataButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -76,7 +78,7 @@
             // 
             // loginButton
             // 
-            this.loginButton.Location = new System.Drawing.Point(388, 209);
+            this.loginButton.Location = new System.Drawing.Point(388, 224);
             this.loginButton.Margin = new System.Windows.Forms.Padding(6);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(338, 66);
@@ -139,6 +141,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.accountTypeBox);
+            this.panel1.Controls.Add(this.accountTypeLabel);
             this.panel1.Controls.Add(this.createAccountLabel);
             this.panel1.Controls.Add(this.verifyPasswordLabel);
             this.panel1.Controls.Add(this.verifyPasswordBox);
@@ -151,8 +155,26 @@
             this.panel1.Location = new System.Drawing.Point(26, 50);
             this.panel1.Margin = new System.Windows.Forms.Padding(6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1512, 298);
+            this.panel1.Size = new System.Drawing.Size(1512, 357);
             this.panel1.TabIndex = 11;
+            // 
+            // accountTypeBox
+            // 
+            this.accountTypeBox.Location = new System.Drawing.Point(388, 169);
+            this.accountTypeBox.Name = "accountTypeBox";
+            this.accountTypeBox.Size = new System.Drawing.Size(338, 38);
+            this.accountTypeBox.TabIndex = 12;
+            this.accountTypeBox.Visible = false;
+            // 
+            // accountTypeLabel
+            // 
+            this.accountTypeLabel.AutoSize = true;
+            this.accountTypeLabel.Location = new System.Drawing.Point(22, 176);
+            this.accountTypeLabel.Name = "accountTypeLabel";
+            this.accountTypeLabel.Size = new System.Drawing.Size(284, 32);
+            this.accountTypeLabel.TabIndex = 11;
+            this.accountTypeLabel.Text = "Account Type (1 or 2)";
+            this.accountTypeLabel.Visible = false;
             // 
             // panel2
             // 
@@ -161,13 +183,40 @@
             this.panel2.Controls.Add(this.databaseMessageLabel);
             this.panel2.Controls.Add(this.accountInfoLabel);
             this.panel2.Controls.Add(this.signOutButton);
-            this.panel2.Location = new System.Drawing.Point(26, 379);
+            this.panel2.Location = new System.Drawing.Point(26, 427);
             this.panel2.Margin = new System.Windows.Forms.Padding(6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1502, 407);
+            this.panel2.Size = new System.Drawing.Size(1502, 359);
             this.panel2.TabIndex = 12;
             this.panel2.Visible = false;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // addDataButton
+            // 
+            this.addDataButton.Location = new System.Drawing.Point(899, 236);
+            this.addDataButton.Name = "addDataButton";
+            this.addDataButton.Size = new System.Drawing.Size(390, 60);
+            this.addDataButton.TabIndex = 4;
+            this.addDataButton.Text = "Add to database";
+            this.addDataButton.UseVisualStyleBackColor = true;
+            this.addDataButton.Click += new System.EventHandler(this.enterMessageButton_Click);
+            // 
+            // databaseMessageBox
+            // 
+            this.databaseMessageBox.Location = new System.Drawing.Point(901, 173);
+            this.databaseMessageBox.Name = "databaseMessageBox";
+            this.databaseMessageBox.Size = new System.Drawing.Size(388, 38);
+            this.databaseMessageBox.TabIndex = 3;
+            this.databaseMessageBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // databaseMessageLabel
+            // 
+            this.databaseMessageLabel.AutoSize = true;
+            this.databaseMessageLabel.Location = new System.Drawing.Point(895, 112);
+            this.databaseMessageLabel.Name = "databaseMessageLabel";
+            this.databaseMessageLabel.Size = new System.Drawing.Size(394, 32);
+            this.databaseMessageLabel.TabIndex = 2;
+            this.databaseMessageLabel.Text = "Enter database message here";
             // 
             // accountInfoLabel
             // 
@@ -190,33 +239,6 @@
             this.signOutButton.UseVisualStyleBackColor = true;
             this.signOutButton.Click += new System.EventHandler(this.signOutButton_Click);
             // 
-            // databaseMessageLabel
-            // 
-            this.databaseMessageLabel.AutoSize = true;
-            this.databaseMessageLabel.Location = new System.Drawing.Point(895, 112);
-            this.databaseMessageLabel.Name = "databaseMessageLabel";
-            this.databaseMessageLabel.Size = new System.Drawing.Size(394, 32);
-            this.databaseMessageLabel.TabIndex = 2;
-            this.databaseMessageLabel.Text = "Enter database message here";
-            // 
-            // databaseMessageBox
-            // 
-            this.databaseMessageBox.Location = new System.Drawing.Point(901, 173);
-            this.databaseMessageBox.Name = "databaseMessageBox";
-            this.databaseMessageBox.Size = new System.Drawing.Size(388, 38);
-            this.databaseMessageBox.TabIndex = 3;
-            this.databaseMessageBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // addDataButton
-            // 
-            this.addDataButton.Location = new System.Drawing.Point(899, 236);
-            this.addDataButton.Name = "addDataButton";
-            this.addDataButton.Size = new System.Drawing.Size(390, 60);
-            this.addDataButton.TabIndex = 4;
-            this.addDataButton.Text = "Add to database";
-            this.addDataButton.UseVisualStyleBackColor = true;
-            this.addDataButton.Click += new System.EventHandler(this.enterMessageButton_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
@@ -226,7 +248,7 @@
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "d";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -253,6 +275,8 @@
         private System.Windows.Forms.TextBox databaseMessageBox;
         private System.Windows.Forms.Label databaseMessageLabel;
         private System.Windows.Forms.Button addDataButton;
+        private System.Windows.Forms.TextBox accountTypeBox;
+        private System.Windows.Forms.Label accountTypeLabel;
     }
 }
 
