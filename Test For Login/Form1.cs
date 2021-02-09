@@ -53,7 +53,7 @@ namespace Test_For_Login
 			InitializeComponent();
 		}
 
-		private async void button1_Click(object sender, EventArgs e)
+		private async void loginButton_Click(object sender, EventArgs e)
 		{
 			
 			if (pageState == "signIn")
@@ -144,7 +144,7 @@ namespace Test_For_Login
 			}
 		}
 
-        private void button3_Click(object sender, EventArgs e)
+        private void createAccountButton_Click(object sender, EventArgs e)
         {
 			// Change panel1 layout based on the state of the screen.
 			if (pageState == "signIn")
@@ -200,25 +200,6 @@ namespace Test_For_Login
 			}
         }
 
-		// graveyard of unused action functions starts here
-		private void textBox1_TextChanged(object sender, EventArgs e)
-		{
-
-		}
-
-		private void label2_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void label1_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void panel2_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
+	
 	}
 }

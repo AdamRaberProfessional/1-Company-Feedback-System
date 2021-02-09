@@ -85,7 +85,7 @@
             this.loginButton.TabIndex = 3;
             this.loginButton.Text = "Login";
             this.loginButton.UseVisualStyleBackColor = true;
-            this.loginButton.Click += new System.EventHandler(this.button1_Click);
+            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
             // passwordLabel
             // 
@@ -106,7 +106,7 @@
             this.createAccountButton.TabIndex = 6;
             this.createAccountButton.Text = "Create Account";
             this.createAccountButton.UseVisualStyleBackColor = true;
-            this.createAccountButton.Click += new System.EventHandler(this.button3_Click);
+            this.createAccountButton.Click += new System.EventHandler(this.createAccountButton_Click);
             // 
             // verifyPasswordBox
             // 
@@ -127,7 +127,7 @@
             this.verifyPasswordLabel.TabIndex = 8;
             this.verifyPasswordLabel.Text = "Verify Password";
             this.verifyPasswordLabel.Visible = false;
-            this.verifyPasswordLabel.Click += new System.EventHandler(this.label2_Click);
+       
             // 
             // createAccountLabel
             // 
@@ -189,7 +189,7 @@
             this.panel2.Size = new System.Drawing.Size(1502, 359);
             this.panel2.TabIndex = 12;
             this.panel2.Visible = false;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+          
             // 
             // addDataButton
             // 
@@ -207,7 +207,7 @@
             this.databaseMessageBox.Name = "databaseMessageBox";
             this.databaseMessageBox.Size = new System.Drawing.Size(388, 38);
             this.databaseMessageBox.TabIndex = 3;
-            this.databaseMessageBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            
             // 
             // databaseMessageLabel
             // 
@@ -226,7 +226,7 @@
             this.accountInfoLabel.Size = new System.Drawing.Size(235, 32);
             this.accountInfoLabel.TabIndex = 1;
             this.accountInfoLabel.Text = "No user signed in";
-            this.accountInfoLabel.Click += new System.EventHandler(this.label1_Click);
+            
             // 
             // signOutButton
             // 
