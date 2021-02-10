@@ -13,6 +13,7 @@ using Firebase.Database.Query;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+
 // how do I make the click function names match the button names?
 
 namespace Test_For_Login
@@ -192,8 +193,7 @@ namespace Test_For_Login
 				//var convertedObject = JsonConvert.SerializeObject(myObject);
 				//await databaseHandler.Child(userId).Child("MessageBoxInfo").PutAsync(convertedObject);
 				//MessageBox.Show($"firebase updated with value {databaseMessageBox.Text}");
-
-
+				
 			}
 
 			catch (Exception excp)
@@ -202,6 +202,22 @@ namespace Test_For_Login
 			}
         }
 
-	
+		private async void button1_Click(object sender, EventArgs e)
+		{
+			var accountData = await databaseHandler
+				  //.Child("accountInfo")
+				  .Child(firebaseUser.LocalId)
+				  //.OrderByKey()
+				  //.StartAt("accountType")
+				  //.LimitToFirst(2)
+				  .OnceAsync<AccountInfo>();
+
+			MessageBox.Show(accountData.);
+
+			foreach (var acc in accountData)
+			{
+				MessageBox.Show($"{acc}");
+			}
+		}
 	}
 }
