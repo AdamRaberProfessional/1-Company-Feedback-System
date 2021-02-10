@@ -23,6 +23,7 @@ namespace Test_For_Login
 		// Initialize firebase auth and create ability to get the current firebaseUser anywhere in the application.
 		private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
 		private readonly FirebaseClient databaseHandler = new FirebaseClient("https://cis-attempt-1-default-rtdb.firebaseio.com/");
+		private AccountInfo accountData;
 		private string pageState = "signIn";
 		private Firebase.Auth.User firebaseUser;
 
@@ -42,11 +43,17 @@ namespace Test_For_Login
 
 		
 
-		private void UserSignedIn()
+		private async void UserSignedInAsync()
         {
-			//change to panel2 and show that the user is signed in.
+			// Set accountData to match the data from the signed in user.
+			var accountDataList = await databaseHandler.Child(firebaseUser.LocalId).OrderByKey().OnceAsync<AccountInfo>();
+			foreach (var acc in accountDataList)
+			{
+				accountData = acc.Object;
+			}
 			ChangePanel(2);
-			accountInfoLabel.Text = $"Signed in as {firebaseUser.Email}";
+			accountInfoLabel.Text = $"Signed in as {firebaseUser.Email}. Account type is {accountData.accountType}";
+			MessageBox.Show($"{accountData.emailAddress} is type {accountData.accountType}");
         }
 
 		public Form1()
@@ -66,7 +73,7 @@ namespace Test_For_Login
 					string password = passwordBox.Text;
 					var userCredential = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
 					firebaseUser = userCredential.User;
-					UserSignedIn();
+					UserSignedInAsync();
 				}
 				catch (Exception error)
 				{
@@ -94,7 +101,7 @@ namespace Test_For_Login
 			}
 			else if (pageState == "createAccount")
 			{
-				if (verifyPasswordBox.Text == passwordBox.Text)
+				if (verifyPasswordBox.Text == passwordBox.Text && accountTypeBox.Text != "")
 				{
 					try
 					{
@@ -105,13 +112,10 @@ namespace Test_For_Login
 						var userCredential = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
 						firebaseUser = userCredential.User;
 						string userId = firebaseUser.LocalId;
-						// Create an accountInfo JSON object (aka dictionary) with email and account type. Upload to firebase.
-						dynamic accountInfo = new JObject();
-						accountInfo["accountType"] = accountTypeBox.Text;
-						accountInfo["emailAddress"] = firebaseUser.Email;
-						await databaseHandler.Child(userId).Child("accountInfo").PutAsync(accountInfo.ToString());
-						UserSignedIn();
-						
+						// Create an accountInfo object with email and account type. Upload to firebase.
+						AccountInfo createdAcctInfo = new AccountInfo(firebaseUser.Email, accountTypeBox.Text);
+						await databaseHandler.Child(userId).Child("accountInfo").PutAsync(createdAcctInfo);
+						UserSignedInAsync();
 					}
 					catch (Exception error)
 					{
@@ -140,7 +144,13 @@ namespace Test_For_Login
 				}
 				else
 				{
-					MessageBox.Show("Passwords must match.");
+					if(verifyPasswordBox.Text != passwordBox.Text)
+                    {
+						MessageBox.Show("Passwords must match.");
+                    }
+                    else if (accountTypeBox.Text == "") {
+						MessageBox.Show("Must choose an account type");
+                    }
 				}
 			}
 		}
@@ -180,44 +190,7 @@ namespace Test_For_Login
         {
 			ChangePanel(1);
 			firebaseUser = null;
-		}
-
-
-		private async void enterMessageButton_Click(object sender, EventArgs e)
-        {
-			try
-			{
-				//string userId = firebaseUser.LocalId;
-				//var myObject = new { inputedData = databaseMessageBox.Text,
-				//					 email = firebaseUser.Email}; 
-				//var convertedObject = JsonConvert.SerializeObject(myObject);
-				//await databaseHandler.Child(userId).Child("MessageBoxInfo").PutAsync(convertedObject);
-				//MessageBox.Show($"firebase updated with value {databaseMessageBox.Text}");
-				
-			}
-
-			catch (Exception excp)
-			{
-				MessageBox.Show(excp.Message);
-			}
-        }
-
-		private async void button1_Click(object sender, EventArgs e)
-		{
-			var accountData = await databaseHandler
-				  //.Child("accountInfo")
-				  .Child(firebaseUser.LocalId)
-				  //.OrderByKey()
-				  //.StartAt("accountType")
-				  //.LimitToFirst(2)
-				  .OnceAsync<AccountInfo>();
-
-			MessageBox.Show(accountData.);
-
-			foreach (var acc in accountData)
-			{
-				MessageBox.Show($"{acc}");
-			}
+			accountData = null;
 		}
 	}
 }

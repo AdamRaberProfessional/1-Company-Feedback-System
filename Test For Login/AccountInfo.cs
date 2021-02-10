@@ -8,23 +8,12 @@ namespace Test_For_Login
 {
 	class AccountInfo
 	{
-		private static string account = null;
-		private static string email = null;
-		public static string accountType()
-		{
-			return account;
-		}
-		public static void accountType(string acc)
-		{
-			account = acc;
-		}
-		public static string emailAddress()
-		{
-			return email;
-		}
-		public static void emailAddress(string e)
-		{
-			email = e;
-		}
+		public string emailAddress { get; set; }
+		public string accountType { get; set; }
+		public AccountInfo(string email, string acctType)
+        {
+			emailAddress = email;
+			accountType = acctType;
+        }
 	}
 }
