@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 
-// how do I make the click function names match the button names?
+// Search for #QUERY for an example of querying the database and #WRITE for an example of writing to the database.
 
 namespace Test_For_Login
 {
@@ -46,6 +46,7 @@ namespace Test_For_Login
 		private async void UserSignedInAsync()
         {
 			// Set accountData to match the data from the signed in user.
+			// #QUERY
 			var accountDataList = await databaseHandler.Child(firebaseUser.LocalId).OrderByKey().OnceAsync<AccountInfo>();
 			foreach (var acc in accountDataList)
 			{
@@ -113,6 +114,7 @@ namespace Test_For_Login
 						firebaseUser = userCredential.User;
 						string userId = firebaseUser.LocalId;
 						// Create an accountInfo object with email and account type. Upload to firebase.
+						// #WRITE
 						AccountInfo createdAcctInfo = new AccountInfo(firebaseUser.Email, accountTypeBox.Text);
 						await databaseHandler.Child(userId).Child("accountInfo").PutAsync(createdAcctInfo);
 						UserSignedInAsync();
