@@ -243,6 +243,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountInfo.cs" />
+    <Compile Include="CodeFile1.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

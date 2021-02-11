@@ -16,4 +16,30 @@ namespace Test_For_Login
 			accountType = acctType;
         }
 	}
+
+	class Message 
+	{
+		public string message { get; set; }
+		public string dateCreated { get; set; }
+		public Boolean anonymous { get; set; }
+		public string email { get; set; }
+
+		public Message(string msg, string dateMade, string emailAddr = null )
+        {
+			message = msg;
+			dateCreated = dateMade;
+			if(emailAddr != null)
+            {
+				anonymous = false;
+				email = emailAddr;
+			}
+			else if (emailAddr == null)
+            {
+				anonymous = true;
+				email = "N/A";
+            }
+			
+        }
+
+	}
 }

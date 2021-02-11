@@ -43,6 +43,10 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.accountInfoLabel = new System.Windows.Forms.Label();
             this.signOutButton = new System.Windows.Forms.Button();
+            this.msgBox = new System.Windows.Forms.TextBox();
+            this.enterMsgLabel = new System.Windows.Forms.Label();
+            this.sendMsgButton = new System.Windows.Forms.Button();
+            this.anonymousCheckBox = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -50,7 +54,7 @@
             // emailBox
             // 
             this.emailBox.Location = new System.Drawing.Point(388, 10);
-            this.emailBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.emailBox.Margin = new System.Windows.Forms.Padding(6);
             this.emailBox.Name = "emailBox";
             this.emailBox.Size = new System.Drawing.Size(338, 38);
             this.emailBox.TabIndex = 0;
@@ -58,7 +62,7 @@
             // passwordBox
             // 
             this.passwordBox.Location = new System.Drawing.Point(388, 64);
-            this.passwordBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.passwordBox.Margin = new System.Windows.Forms.Padding(6);
             this.passwordBox.Name = "passwordBox";
             this.passwordBox.PasswordChar = '*';
             this.passwordBox.Size = new System.Drawing.Size(338, 38);
@@ -78,7 +82,7 @@
             // loginButton
             // 
             this.loginButton.Location = new System.Drawing.Point(388, 225);
-            this.loginButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.loginButton.Margin = new System.Windows.Forms.Padding(6);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(338, 66);
             this.loginButton.TabIndex = 3;
@@ -99,7 +103,7 @@
             // createAccountButton
             // 
             this.createAccountButton.Location = new System.Drawing.Point(794, 74);
-            this.createAccountButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.createAccountButton.Margin = new System.Windows.Forms.Padding(4);
             this.createAccountButton.Name = "createAccountButton";
             this.createAccountButton.Size = new System.Drawing.Size(346, 54);
             this.createAccountButton.TabIndex = 6;
@@ -110,7 +114,7 @@
             // verifyPasswordBox
             // 
             this.verifyPasswordBox.Location = new System.Drawing.Point(388, 120);
-            this.verifyPasswordBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.verifyPasswordBox.Margin = new System.Windows.Forms.Padding(4);
             this.verifyPasswordBox.Name = "verifyPasswordBox";
             this.verifyPasswordBox.Size = new System.Drawing.Size(338, 38);
             this.verifyPasswordBox.TabIndex = 7;
@@ -151,7 +155,7 @@
             this.panel1.Controls.Add(this.passwordBox);
             this.panel1.Controls.Add(this.emailBox);
             this.panel1.Location = new System.Drawing.Point(26, 50);
-            this.panel1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.panel1.Margin = new System.Windows.Forms.Padding(6);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1512, 356);
             this.panel1.TabIndex = 11;
@@ -164,7 +168,7 @@
             "Admin",
             "User"});
             this.accountTypeBox.Location = new System.Drawing.Point(388, 172);
-            this.accountTypeBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.accountTypeBox.Margin = new System.Windows.Forms.Padding(4);
             this.accountTypeBox.MaxDropDownItems = 2;
             this.accountTypeBox.Name = "accountTypeBox";
             this.accountTypeBox.Size = new System.Drawing.Size(338, 39);
@@ -184,10 +188,14 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.anonymousCheckBox);
+            this.panel2.Controls.Add(this.sendMsgButton);
+            this.panel2.Controls.Add(this.enterMsgLabel);
+            this.panel2.Controls.Add(this.msgBox);
             this.panel2.Controls.Add(this.accountInfoLabel);
             this.panel2.Controls.Add(this.signOutButton);
             this.panel2.Location = new System.Drawing.Point(26, 426);
-            this.panel2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.panel2.Margin = new System.Windows.Forms.Padding(6);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1502, 358);
             this.panel2.TabIndex = 12;
@@ -196,7 +204,7 @@
             // accountInfoLabel
             // 
             this.accountInfoLabel.AutoSize = true;
-            this.accountInfoLabel.Location = new System.Drawing.Point(316, 85);
+            this.accountInfoLabel.Location = new System.Drawing.Point(16, 12);
             this.accountInfoLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.accountInfoLabel.Name = "accountInfoLabel";
             this.accountInfoLabel.Size = new System.Drawing.Size(235, 32);
@@ -205,14 +213,52 @@
             // 
             // signOutButton
             // 
-            this.signOutButton.Location = new System.Drawing.Point(300, 202);
-            this.signOutButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.signOutButton.Location = new System.Drawing.Point(1154, 297);
+            this.signOutButton.Margin = new System.Windows.Forms.Padding(6);
             this.signOutButton.Name = "signOutButton";
             this.signOutButton.Size = new System.Drawing.Size(342, 45);
             this.signOutButton.TabIndex = 0;
             this.signOutButton.Text = "Sign Out";
             this.signOutButton.UseVisualStyleBackColor = true;
             this.signOutButton.Click += new System.EventHandler(this.signOutButton_Click);
+            // 
+            // msgBox
+            // 
+            this.msgBox.Location = new System.Drawing.Point(445, 193);
+            this.msgBox.Name = "msgBox";
+            this.msgBox.Size = new System.Drawing.Size(442, 38);
+            this.msgBox.TabIndex = 2;
+            // 
+            // enterMsgLabel
+            // 
+            this.enterMsgLabel.AutoSize = true;
+            this.enterMsgLabel.Location = new System.Drawing.Point(143, 196);
+            this.enterMsgLabel.Name = "enterMsgLabel";
+            this.enterMsgLabel.Size = new System.Drawing.Size(277, 32);
+            this.enterMsgLabel.TabIndex = 3;
+            this.enterMsgLabel.Text = "Enter message here:";
+            this.enterMsgLabel.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // sendMsgButton
+            // 
+            this.sendMsgButton.Location = new System.Drawing.Point(563, 253);
+            this.sendMsgButton.Name = "sendMsgButton";
+            this.sendMsgButton.Size = new System.Drawing.Size(324, 41);
+            this.sendMsgButton.TabIndex = 4;
+            this.sendMsgButton.Text = "Send message";
+            this.sendMsgButton.UseVisualStyleBackColor = true;
+            this.sendMsgButton.Click += new System.EventHandler(this.sendMsgButton_Click);
+            // 
+            // anonymousCheckBox
+            // 
+            this.anonymousCheckBox.AutoSize = true;
+            this.anonymousCheckBox.Location = new System.Drawing.Point(149, 253);
+            this.anonymousCheckBox.Name = "anonymousCheckBox";
+            this.anonymousCheckBox.Size = new System.Drawing.Size(398, 36);
+            this.anonymousCheckBox.TabIndex = 5;
+            this.anonymousCheckBox.Text = "Make message anonymous";
+            this.anonymousCheckBox.UseVisualStyleBackColor = true;
+            this.anonymousCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // Form1
             // 
@@ -221,7 +267,7 @@
             this.ClientSize = new System.Drawing.Size(1600, 810);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
             this.Text = "d";
             this.panel1.ResumeLayout(false);
@@ -249,6 +295,10 @@
         private System.Windows.Forms.Label accountInfoLabel;
         private System.Windows.Forms.Label accountTypeLabel;
         private System.Windows.Forms.ComboBox accountTypeBox;
-	}
+        private System.Windows.Forms.TextBox msgBox;
+        private System.Windows.Forms.Label enterMsgLabel;
+        private System.Windows.Forms.CheckBox anonymousCheckBox;
+        private System.Windows.Forms.Button sendMsgButton;
+    }
 }
 

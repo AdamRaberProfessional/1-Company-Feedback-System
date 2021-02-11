@@ -47,14 +47,51 @@ namespace Test_For_Login
         {
 			// Set accountData to match the data from the signed in user.
 			// #QUERY
-			var accountDataList = await databaseHandler.Child(firebaseUser.LocalId).OrderByKey().OnceAsync<AccountInfo>();
-			foreach (var acc in accountDataList)
-			{
-				accountData = acc.Object;
-			}
+			accountData = await databaseHandler.Child("accounts").Child(firebaseUser.LocalId).Child("accountInfo").OrderByKey().OnceSingleAsync<AccountInfo>();
 			ChangePanel(2);
 			accountInfoLabel.Text = $"Signed in as {firebaseUser.Email}. Account type is {accountData.accountType}";
-			MessageBox.Show($"{accountData.emailAddress} is type {accountData.accountType}");
+        }
+
+		private async void AddMessage()
+        {
+			// get all messages from firebase database and add it to the list of messages
+			// #QUERY
+			List<Message> messages = new List<Message>();
+			var messageList = await databaseHandler.Child("Messages").OnceSingleAsync<List<Message>>();
+			if (messageList != null)
+            {
+				foreach (var message in messageList)
+				{
+					messages.Add(message);
+				}
+			}
+			
+
+			// create a new message from the text box, add to messages, and upload to firebase.
+			// #WRITE
+			if (anonymousCheckBox.Checked == false)
+			{ 
+				Message tempMsg = new Message(msgBox.Text, DateTime.Now.ToString(), accountData.emailAddress); // Message that stores email
+				messages.Add(tempMsg);
+				await databaseHandler.Child("Messages").PutAsync(messages);
+			}
+            else 
+			{
+				Message tempMsg = new Message(msgBox.Text, DateTime.Now.ToString()); // Message that doesn't store email
+				messages.Add(tempMsg);
+				await databaseHandler.Child("Messages").PutAsync(messages);
+			}
+			if(anonymousCheckBox.Checked == false)
+            {
+				MessageBox.Show("Message sent");
+			}
+			else if (anonymousCheckBox.Checked == true)
+            {
+				MessageBox.Show("Anyonymous message sent");
+            }
+			
+			msgBox.Text = "";
+			anonymousCheckBox.Checked = false;
         }
 
 		public Form1()
@@ -116,7 +153,7 @@ namespace Test_For_Login
 						// Create an accountInfo object with email and account type. Upload to firebase.
 						// #WRITE
 						AccountInfo createdAcctInfo = new AccountInfo(firebaseUser.Email, accountTypeBox.Text);
-						await databaseHandler.Child(userId).Child("accountInfo").PutAsync(createdAcctInfo);
+						await databaseHandler.Child("accounts").Child(userId).Child("accountInfo").PutAsync(createdAcctInfo);
 						UserSignedInAsync();
 					}
 					catch (Exception error)
@@ -194,5 +231,20 @@ namespace Test_For_Login
 			firebaseUser = null;
 			accountData = null;
 		}
-	}
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sendMsgButton_Click(object sender, EventArgs e)
+        {
+			AddMessage();
+        }
+    }
 }
