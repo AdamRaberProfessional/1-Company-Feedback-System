@@ -13,6 +13,7 @@ using Firebase.Database.Query;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net.Mail;
+using System.Net;
 
 
 // Search for #QUERY for an example of querying the database and #WRITE for an example of writing to the database.
@@ -24,6 +25,14 @@ namespace Test_For_Login
 		// Initialize firebase auth and create ability to get the current firebaseUser anywhere in the application.
 		private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
 		private readonly FirebaseClient databaseHandler = new FirebaseClient("https://cis-attempt-1-default-rtdb.firebaseio.com/");
+
+		private SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
+		{
+			Port = 587,
+			Credentials = new NetworkCredential("cis340capstoneteam@gmail.com", "capston3!"),
+			EnableSsl = true,
+		};
+
 
 		private AccountInfo accountData;
 		private string pageState = "signIn";
@@ -115,7 +124,28 @@ namespace Test_For_Login
             {
 				MessageBox.Show("Anyonymous message sent");
             }
-			
+
+			var mailMessage = new MailMessage
+			{
+				From = new MailAddress("cis340capstoneteam@gmail.com"),
+				Subject = "Message sent",
+				IsBodyHtml = true,
+			};
+
+            if (anonymousCheckBox.Checked)
+            {
+				mailMessage.Body = "<body>Thank you for your input to the company! We can assure you your input was anonymous. Here is the message that you sent: <br>" +
+				$"{msgBox.Text} <br> Sent {DateTime.Now.ToString()}</body>";
+            }
+            else
+            {
+				mailMessage.Body = "<body>Thank you for your input to the company! You chose to send it non-anonymously. Here is the message that you sent: <br>" +
+				$"{msgBox.Text} <br> Sent {DateTime.Now.ToString()}</body>";
+			}
+			mailMessage.To.Add(firebaseUser.Email);
+
+			smtpClient.Send(mailMessage);
+
 			msgBox.Text = "";
 			anonymousCheckBox.Checked = false;
         }
@@ -306,7 +336,7 @@ namespace Test_For_Login
             }
 		}
 
-		private void msgsListBox_DoubleClick(object sender, EventArgs e)
+		private void adminMsgsListBox_DoubleClick(object sender, EventArgs e)
 		{
 			Message chosenMsg = msgList[adminMsgsListBox.SelectedIndex];
             if (!chosenMsg.anonymous)

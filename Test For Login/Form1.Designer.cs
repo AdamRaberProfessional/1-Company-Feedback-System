@@ -314,7 +314,7 @@
             this.adminMsgsListBox.Name = "adminMsgsListBox";
             this.adminMsgsListBox.Size = new System.Drawing.Size(690, 159);
             this.adminMsgsListBox.TabIndex = 0;
-            this.adminMsgsListBox.DoubleClick += new System.EventHandler(this.msgsListBox_DoubleClick);
+            this.adminMsgsListBox.DoubleClick += new System.EventHandler(this.adminMsgsListBox_DoubleClick);
             // 
             // signUpCodeBox
             // 
