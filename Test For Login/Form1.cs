@@ -23,9 +23,9 @@ namespace Test_For_Login
 		// Initialize firebase auth and create ability to get the current firebaseUser anywhere in the application.
 		private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
 		private readonly FirebaseClient databaseHandler = new FirebaseClient("https://cis-attempt-1-default-rtdb.firebaseio.com/");
-		private List<Message> messageList;
 		private AccountInfo accountData;
 		private string pageState = "signIn";
+		List<Message> msgList;
 		private Firebase.Auth.User firebaseUser;
 
 		private void ChangePanel(int panelNumber)
@@ -71,7 +71,11 @@ namespace Test_For_Login
 
 		private async Task UpdateMessageListAsync()
 		{
-			messageList =  await databaseHandler.Child("Messages").OnceSingleAsync<List<Message>>();
+			msgList =  await databaseHandler.Child("Messages").OnceSingleAsync<List<Message>>();
+			if(msgList == null)
+            {
+				msgList = new List<Message>();
+            }
 		}
 
 		private async void AddMessage()
@@ -82,16 +86,22 @@ namespace Test_For_Login
 			if (anonymousCheckBox.Checked == false)
 			{ 
 				// create Message with email address, add to messages, upload to firebase
-				Message tempMsg = new Message(msgBox.Text, DateTime.Now.ToString(), accountData.emailAddress); // Message that stores email
-				messageList.Add(tempMsg);
-				await databaseHandler.Child("Messages").PutAsync(messageList);
+				Message tempMsg = new Message(msgBox.Text, DateTime.Now.ToString(), accountData.emailAddress, false); // Message that stores email
+				if(msgList != null)
+                {
+					msgList.Add(tempMsg);
+				}
+				await databaseHandler.Child("Messages").PutAsync(msgList);
 			}
             else 
 			{
 				// create Message without email address, add to messages, and upload to firebase.
-				Message tempMsg = new Message(msgBox.Text, DateTime.Now.ToString()); // Message that doesn't store email
-				messageList.Add(tempMsg);
-				await databaseHandler.Child("Messages").PutAsync(messageList);
+				Message tempMsg = new Message(msgBox.Text, DateTime.Now.ToString(), accountData.emailAddress, true);
+				if (msgList != null)
+				{
+					msgList.Add(tempMsg);
+                }
+				await databaseHandler.Child("Messages").PutAsync(msgList);
 			}
 			if(anonymousCheckBox.Checked == false)
             {
@@ -260,17 +270,44 @@ namespace Test_For_Login
         private async void showMsgsButton_Click(object sender, EventArgs e)
         {
 			await UpdateMessageListAsync();
-			foreach(Message msg in messageList)
+			msgsListBox.Items.Clear();
+			if(msgList != null)
             {
-				msgsListBox.Items.Add(msg.message);
+				foreach (Message msg in msgList)
+				{
+					msgsListBox.Items.Add(msg.message);
+				}
+            }
+            else if(msgList == null)
+            {
+				MessageBox.Show("No messages to show");
             }
 		}
 
 		private void msgsListBox_DoubleClick(object sender, EventArgs e)
 		{
-			MessageBox.Show($"Email: {messageList[msgsListBox.SelectedIndex].email} Created {messageList[msgsListBox.SelectedIndex].dateCreated}");
-        }
-		
+			Message chosenMsg = msgList[msgsListBox.SelectedIndex];
+            if (!chosenMsg.anonymous)
+            {
+				MessageBox.Show($"Message {(msgsListBox.SelectedIndex + 1).ToString()}. Created by {chosenMsg.email} Date/time: {chosenMsg.dateCreated}");
 
-	}
+            }
+            else
+            {
+				MessageBox.Show($"Message {(msgsListBox.SelectedIndex + 1).ToString()}. Message created anonymously. Date/time: {chosenMsg.dateCreated}");
+
+			}
+		}
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+			await UpdateMessageListAsync();
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

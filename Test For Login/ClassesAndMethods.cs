@@ -22,20 +22,14 @@ namespace Test_For_Login
 		public string message { get; set; }
 		public string dateCreated { get; set; }
 		public string email { get; set; }
+		public bool anonymous { get; set; }
 
-		public Message(string msg, string dateMade, string emailAddr = null )
+		public Message(string msg, string dateMade, string emailAddr, bool anonymousUser)
         {
 			message = msg;
 			dateCreated = dateMade;
-			if(emailAddr != null)
-            {
-				email = emailAddr;
-			}
-			else if (emailAddr == null)
-            {
-				email = "N/A";
-            }
-			
+			email = emailAddr;
+			anonymous = anonymousUser;
         }
 
 		public override string ToString() {

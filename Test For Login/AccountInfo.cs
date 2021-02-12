@@ -24,21 +24,12 @@ namespace Test_For_Login
 		public Boolean anonymous { get; set; }
 		public string email { get; set; }
 
-		public Message(string msg, string dateMade, string emailAddr = null )
+		public Message(string msg, string dateMade, string emailAddr, bool isAnonymous)
         {
 			message = msg;
 			dateCreated = dateMade;
-			if(emailAddr != null)
-            {
-				anonymous = false;
-				email = emailAddr;
-			}
-			else if (emailAddr == null)
-            {
-				anonymous = true;
-				email = "N/A";
-            }
-			
+			email = emailAddr;
+			anonymous = isAnonymous;
         }
 
 	}
