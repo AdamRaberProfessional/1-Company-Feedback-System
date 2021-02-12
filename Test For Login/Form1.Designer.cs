@@ -41,14 +41,20 @@
             this.accountTypeBox = new System.Windows.Forms.ComboBox();
             this.accountTypeLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.anonymousCheckBox = new System.Windows.Forms.CheckBox();
+            this.sendMsgButton = new System.Windows.Forms.Button();
+            this.enterMsgLabel = new System.Windows.Forms.Label();
+            this.msgBox = new System.Windows.Forms.TextBox();
             this.accountInfoLabel = new System.Windows.Forms.Label();
             this.signOutButton = new System.Windows.Forms.Button();
-            this.msgBox = new System.Windows.Forms.TextBox();
-            this.enterMsgLabel = new System.Windows.Forms.Label();
-            this.sendMsgButton = new System.Windows.Forms.Button();
-            this.anonymousCheckBox = new System.Windows.Forms.CheckBox();
+            this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.msgsListBox = new System.Windows.Forms.ListBox();
+            this.showMsgsButton = new System.Windows.Forms.Button();
+            this.adminSignOutButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // emailBox
@@ -154,7 +160,7 @@
             this.panel1.Controls.Add(this.emailLabel);
             this.panel1.Controls.Add(this.passwordBox);
             this.panel1.Controls.Add(this.emailBox);
-            this.panel1.Location = new System.Drawing.Point(26, 50);
+            this.panel1.Location = new System.Drawing.Point(52, 439);
             this.panel1.Margin = new System.Windows.Forms.Padding(6);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1512, 356);
@@ -194,12 +200,50 @@
             this.panel2.Controls.Add(this.msgBox);
             this.panel2.Controls.Add(this.accountInfoLabel);
             this.panel2.Controls.Add(this.signOutButton);
-            this.panel2.Location = new System.Drawing.Point(26, 426);
+            this.panel2.Location = new System.Drawing.Point(43, 437);
             this.panel2.Margin = new System.Windows.Forms.Padding(6);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1502, 358);
             this.panel2.TabIndex = 12;
             this.panel2.Visible = false;
+            // 
+            // anonymousCheckBox
+            // 
+            this.anonymousCheckBox.AutoSize = true;
+            this.anonymousCheckBox.Location = new System.Drawing.Point(149, 253);
+            this.anonymousCheckBox.Name = "anonymousCheckBox";
+            this.anonymousCheckBox.Size = new System.Drawing.Size(398, 36);
+            this.anonymousCheckBox.TabIndex = 5;
+            this.anonymousCheckBox.Text = "Make message anonymous";
+            this.anonymousCheckBox.UseVisualStyleBackColor = true;
+            this.anonymousCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // sendMsgButton
+            // 
+            this.sendMsgButton.Location = new System.Drawing.Point(563, 253);
+            this.sendMsgButton.Name = "sendMsgButton";
+            this.sendMsgButton.Size = new System.Drawing.Size(324, 41);
+            this.sendMsgButton.TabIndex = 4;
+            this.sendMsgButton.Text = "Send message";
+            this.sendMsgButton.UseVisualStyleBackColor = true;
+            this.sendMsgButton.Click += new System.EventHandler(this.sendMsgButton_Click);
+            // 
+            // enterMsgLabel
+            // 
+            this.enterMsgLabel.AutoSize = true;
+            this.enterMsgLabel.Location = new System.Drawing.Point(143, 196);
+            this.enterMsgLabel.Name = "enterMsgLabel";
+            this.enterMsgLabel.Size = new System.Drawing.Size(277, 32);
+            this.enterMsgLabel.TabIndex = 3;
+            this.enterMsgLabel.Text = "Enter message here:";
+            this.enterMsgLabel.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // msgBox
+            // 
+            this.msgBox.Location = new System.Drawing.Point(445, 193);
+            this.msgBox.Name = "msgBox";
+            this.msgBox.Size = new System.Drawing.Size(442, 38);
+            this.msgBox.TabIndex = 2;
             // 
             // accountInfoLabel
             // 
@@ -222,49 +266,52 @@
             this.signOutButton.UseVisualStyleBackColor = true;
             this.signOutButton.Click += new System.EventHandler(this.signOutButton_Click);
             // 
-            // msgBox
+            // panel3
             // 
-            this.msgBox.Location = new System.Drawing.Point(445, 193);
-            this.msgBox.Name = "msgBox";
-            this.msgBox.Size = new System.Drawing.Size(442, 38);
-            this.msgBox.TabIndex = 2;
+            this.panel3.Controls.Add(this.adminSignOutButton);
+            this.panel3.Controls.Add(this.showMsgsButton);
+            this.panel3.Controls.Add(this.msgsListBox);
+            this.panel3.Location = new System.Drawing.Point(44, 56);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1520, 346);
+            this.panel3.TabIndex = 13;
+            this.panel3.Visible = false;
             // 
-            // enterMsgLabel
+            // msgsListBox
             // 
-            this.enterMsgLabel.AutoSize = true;
-            this.enterMsgLabel.Location = new System.Drawing.Point(143, 196);
-            this.enterMsgLabel.Name = "enterMsgLabel";
-            this.enterMsgLabel.Size = new System.Drawing.Size(277, 32);
-            this.enterMsgLabel.TabIndex = 3;
-            this.enterMsgLabel.Text = "Enter message here:";
-            this.enterMsgLabel.Click += new System.EventHandler(this.label1_Click);
+            this.msgsListBox.FormattingEnabled = true;
+            this.msgsListBox.ItemHeight = 31;
+            this.msgsListBox.Location = new System.Drawing.Point(425, 159);
+            this.msgsListBox.Name = "msgsListBox";
+            this.msgsListBox.Size = new System.Drawing.Size(690, 159);
+            this.msgsListBox.TabIndex = 0;
             // 
-            // sendMsgButton
+            // showMsgsButton
             // 
-            this.sendMsgButton.Location = new System.Drawing.Point(563, 253);
-            this.sendMsgButton.Name = "sendMsgButton";
-            this.sendMsgButton.Size = new System.Drawing.Size(324, 41);
-            this.sendMsgButton.TabIndex = 4;
-            this.sendMsgButton.Text = "Send message";
-            this.sendMsgButton.UseVisualStyleBackColor = true;
-            this.sendMsgButton.Click += new System.EventHandler(this.sendMsgButton_Click);
+            this.showMsgsButton.Location = new System.Drawing.Point(36, 181);
+            this.showMsgsButton.Name = "showMsgsButton";
+            this.showMsgsButton.Size = new System.Drawing.Size(283, 75);
+            this.showMsgsButton.TabIndex = 1;
+            this.showMsgsButton.Text = "Show Messages";
+            this.showMsgsButton.UseVisualStyleBackColor = true;
+            this.showMsgsButton.Click += new System.EventHandler(this.showMsgsButton_Click);
             // 
-            // anonymousCheckBox
+            // adminSignOutButton
             // 
-            this.anonymousCheckBox.AutoSize = true;
-            this.anonymousCheckBox.Location = new System.Drawing.Point(149, 253);
-            this.anonymousCheckBox.Name = "anonymousCheckBox";
-            this.anonymousCheckBox.Size = new System.Drawing.Size(398, 36);
-            this.anonymousCheckBox.TabIndex = 5;
-            this.anonymousCheckBox.Text = "Make message anonymous";
-            this.anonymousCheckBox.UseVisualStyleBackColor = true;
-            this.anonymousCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.adminSignOutButton.Location = new System.Drawing.Point(1153, 198);
+            this.adminSignOutButton.Name = "adminSignOutButton";
+            this.adminSignOutButton.Size = new System.Drawing.Size(266, 58);
+            this.adminSignOutButton.TabIndex = 2;
+            this.adminSignOutButton.Text = "Sign out";
+            this.adminSignOutButton.UseVisualStyleBackColor = true;
+            this.adminSignOutButton.Click += new System.EventHandler(this.adminSignOutButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1600, 810);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(6);
@@ -274,6 +321,7 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
 		}
@@ -299,6 +347,11 @@
         private System.Windows.Forms.Label enterMsgLabel;
         private System.Windows.Forms.CheckBox anonymousCheckBox;
         private System.Windows.Forms.Button sendMsgButton;
+        private System.Windows.Forms.PageSetupDialog pageSetupDialog1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button showMsgsButton;
+        private System.Windows.Forms.ListBox msgsListBox;
+        private System.Windows.Forms.Button adminSignOutButton;
     }
 }
 

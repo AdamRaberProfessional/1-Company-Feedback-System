@@ -34,10 +34,18 @@ namespace Test_For_Login
             {
 				panel1.Visible = true;
 				panel2.Visible = false;
-			}else if(panelNumber == 2)
+				panel3.Visible = false;
+			}
+			else if(panelNumber == 2)
             {
 				panel1.Visible = false;
 				panel2.Visible = true;
+				panel3.Visible = false;
+            }else if (panelNumber == 3)
+            {
+				panel1.Visible = false;
+				panel2.Visible = false;
+				panel3.Visible = true;
             }
         }
 
@@ -48,35 +56,33 @@ namespace Test_For_Login
 			// Set accountData to match the data from the signed in user.
 			// #QUERY
 			accountData = await databaseHandler.Child("accounts").Child(firebaseUser.LocalId).Child("accountInfo").OrderByKey().OnceSingleAsync<AccountInfo>();
-			ChangePanel(2);
-			accountInfoLabel.Text = $"Signed in as {firebaseUser.Email}. Account type is {accountData.accountType}";
+			if(accountData.accountType == "User")
+            {
+				ChangePanel(2);
+			}
+			else if (accountData.accountType == "Admin")
+            {
+				ChangePanel(3);
+            }
+
+				accountInfoLabel.Text = $"Signed in as {firebaseUser.Email}. Account type is {accountData.accountType}";
         }
 
 		private async void AddMessage()
         {
-			// get all messages from firebase database and add it to the list of messages
 			// #QUERY
-			List<Message> messages = new List<Message>();
-			var messageList = await databaseHandler.Child("Messages").OnceSingleAsync<List<Message>>();
-			if (messageList != null)
-            {
-				foreach (var message in messageList)
-				{
-					messages.Add(message);
-				}
-			}
-			
-
-			// create a new message from the text box, add to messages, and upload to firebase.
+			List<Message> messages = await databaseHandler.Child("Messages").OnceSingleAsync<List<Message>>();
 			// #WRITE
 			if (anonymousCheckBox.Checked == false)
 			{ 
+				// create Message with email address, add to messages, upload to firebase
 				Message tempMsg = new Message(msgBox.Text, DateTime.Now.ToString(), accountData.emailAddress); // Message that stores email
 				messages.Add(tempMsg);
 				await databaseHandler.Child("Messages").PutAsync(messages);
 			}
             else 
 			{
+				// create Message without email address, add to messages, and upload to firebase.
 				Message tempMsg = new Message(msgBox.Text, DateTime.Now.ToString()); // Message that doesn't store email
 				messages.Add(tempMsg);
 				await databaseHandler.Child("Messages").PutAsync(messages);
@@ -94,6 +100,13 @@ namespace Test_For_Login
 			anonymousCheckBox.Checked = false;
         }
 
+		private void SignUserOut()
+        {
+			ChangePanel(1);
+			firebaseUser = null;
+			accountData = null;
+		}
+
 		public Form1()
 		{
 			InitializeComponent();
@@ -109,7 +122,7 @@ namespace Test_For_Login
 					// Sign user in and set firebaseUser as the newly signed in account.
 					string email = emailBox.Text;
 					string password = passwordBox.Text;
-					var userCredential = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
+					FirebaseAuthLink userCredential = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
 					firebaseUser = userCredential.User;
 					UserSignedInAsync();
 				}
@@ -147,7 +160,7 @@ namespace Test_For_Login
 						string email = emailBox.Text;
 						string password = passwordBox.Text;
 						string accountType = accountTypeBox.Text;
-						var userCredential = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
+						FirebaseAuthLink userCredential = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
 						firebaseUser = userCredential.User;
 						string userId = firebaseUser.LocalId;
 						// Create an accountInfo object with email and account type. Upload to firebase.
@@ -227,9 +240,7 @@ namespace Test_For_Login
 
         private void signOutButton_Click(object sender, EventArgs e)
         {
-			ChangePanel(1);
-			firebaseUser = null;
-			accountData = null;
+			SignUserOut();
 		}
 
         private void label1_Click(object sender, EventArgs e)
@@ -246,5 +257,19 @@ namespace Test_For_Login
         {
 			AddMessage();
         }
+
+        private void adminSignOutButton_Click(object sender, EventArgs e)
+        {
+			SignUserOut();
+        }
+
+        private async void showMsgsButton_Click(object sender, EventArgs e)
+        {
+			List<Message> messages = await databaseHandler.Child("Messages").OnceSingleAsync<List<Message>>();
+			foreach(Message msg in messages)
+            {
+
+            }
+		}
     }
 }
