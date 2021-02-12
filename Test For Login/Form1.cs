@@ -12,6 +12,7 @@ using Firebase.Database;
 using Firebase.Database.Query;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Net.Mail;
 
 
 // Search for #QUERY for an example of querying the database and #WRITE for an example of writing to the database.
@@ -23,9 +24,12 @@ namespace Test_For_Login
 		// Initialize firebase auth and create ability to get the current firebaseUser anywhere in the application.
 		private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
 		private readonly FirebaseClient databaseHandler = new FirebaseClient("https://cis-attempt-1-default-rtdb.firebaseio.com/");
+
 		private AccountInfo accountData;
 		private string pageState = "signIn";
 		List<Message> msgList;
+		List<Message> userMsgList;
+
 		private Firebase.Auth.User firebaseUser;
 
 		private void ChangePanel(int panelNumber)
@@ -86,7 +90,7 @@ namespace Test_For_Login
 			if (anonymousCheckBox.Checked == false)
 			{ 
 				// create Message with email address, add to messages, upload to firebase
-				Message tempMsg = new Message(msgBox.Text, DateTime.Now.ToString(), accountData.emailAddress, false); // Message that stores email
+				Message tempMsg = new Message(msgBox.Text, DateTime.Now.ToString(), firebaseUser.Email, false); // Message that stores email
 				if(msgList != null)
                 {
 					msgList.Add(tempMsg);
@@ -96,7 +100,7 @@ namespace Test_For_Login
             else 
 			{
 				// create Message without email address, add to messages, and upload to firebase.
-				Message tempMsg = new Message(msgBox.Text, DateTime.Now.ToString(), accountData.emailAddress, true);
+				Message tempMsg = new Message(msgBox.Text, DateTime.Now.ToString(), firebaseUser.Email, true);
 				if (msgList != null)
 				{
 					msgList.Add(tempMsg);
@@ -121,6 +125,9 @@ namespace Test_For_Login
 			ChangePanel(1);
 			firebaseUser = null;
 			accountData = null;
+			adminMsgsListBox.Items.Clear();
+			userMsgsListBox.Items.Clear();
+			userMsgList = null;
 		}
 
 		public Form1()
@@ -168,22 +175,37 @@ namespace Test_For_Login
 			}
 			else if (pageState == "createAccount")
 			{
-				if (verifyPasswordBox.Text == passwordBox.Text && accountTypeBox.Text != "")
+				if (verifyPasswordBox.Text == passwordBox.Text && signUpCodeBox.Text != "")
 				{
 					try
 					{
 						// Create account and set firebaseUser as the newly created account. Add account info to database.
 						string email = emailBox.Text;
 						string password = passwordBox.Text;
-						string accountType = accountTypeBox.Text;
-						FirebaseAuthLink userCredential = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
-						firebaseUser = userCredential.User;
-						string userId = firebaseUser.LocalId;
-						// Create an accountInfo object with email and account type. Upload to firebase.
-						// #WRITE
-						AccountInfo createdAcctInfo = new AccountInfo(firebaseUser.Email, accountTypeBox.Text);
-						await databaseHandler.Child("accounts").Child(userId).Child("accountInfo").PutAsync(createdAcctInfo);
-						UserSignedInAsync();
+						string accountType = null;
+						if(signUpCodeBox.Text == "00USER00")
+                        {
+							accountType = "User";
+						}else if(signUpCodeBox.Text == "00ADMIN00"){
+							accountType = "Admin";
+                        }
+						
+						if(accountType != null)
+                        {
+							FirebaseAuthLink userCredential = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
+							firebaseUser = userCredential.User;
+							string userId = firebaseUser.LocalId;
+							// Create an accountInfo object with email and account type. Upload to firebase.
+							// #WRITE
+							AccountInfo createdAcctInfo = new AccountInfo(firebaseUser.Email, accountType);
+							await databaseHandler.Child("accounts").Child(userId).Child("accountInfo").PutAsync(createdAcctInfo);
+							UserSignedInAsync();
+                        }
+                        else
+                        {
+							MessageBox.Show("Invalid account type. All users must be part of the company.");
+                        }
+
 					}
 					catch (Exception error)
 					{
@@ -216,8 +238,8 @@ namespace Test_For_Login
                     {
 						MessageBox.Show("Passwords must match.");
                     }
-                    else if (accountTypeBox.Text == "") {
-						MessageBox.Show("Must choose an account type");
+                    else if (signUpCodeBox.Text == "") {
+						MessageBox.Show("You must have an account code.");
                     }
 				}
 			}
@@ -231,7 +253,7 @@ namespace Test_For_Login
 				pageState = "createAccount";
 				verifyPasswordLabel.Visible = true;
 				verifyPasswordBox.Visible = true;
-				accountTypeBox.Visible = true;
+				signUpCodeBox.Visible = true;
 				accountTypeLabel.Visible = true;
 				createAccountButton.Text = "Sign in";
 				createAccountLabel.Text = "Already have an account? Click here to sign in";
@@ -243,7 +265,7 @@ namespace Test_For_Login
 				verifyPasswordBox.Text = ""; 
 				verifyPasswordLabel.Visible = false;
 				verifyPasswordBox.Visible = false;
-				accountTypeBox.Visible = false;
+				signUpCodeBox.Visible = false;
 				accountTypeLabel.Visible = false;
 				createAccountButton.Text = "Create Account";
 				loginButton.Text = "Login";
@@ -260,7 +282,7 @@ namespace Test_For_Login
         private void sendMsgButton_Click(object sender, EventArgs e)
         {
 			AddMessage();
-        }
+		}
 
         private void adminSignOutButton_Click(object sender, EventArgs e)
         {
@@ -270,12 +292,12 @@ namespace Test_For_Login
         private async void showMsgsButton_Click(object sender, EventArgs e)
         {
 			await UpdateMessageListAsync();
-			msgsListBox.Items.Clear();
+			adminMsgsListBox.Items.Clear();
 			if(msgList != null)
             {
 				foreach (Message msg in msgList)
 				{
-					msgsListBox.Items.Add(msg.message);
+					adminMsgsListBox.Items.Add(msg.message);
 				}
             }
             else if(msgList == null)
@@ -286,28 +308,48 @@ namespace Test_For_Login
 
 		private void msgsListBox_DoubleClick(object sender, EventArgs e)
 		{
-			Message chosenMsg = msgList[msgsListBox.SelectedIndex];
+			Message chosenMsg = msgList[adminMsgsListBox.SelectedIndex];
             if (!chosenMsg.anonymous)
             {
-				MessageBox.Show($"Message {(msgsListBox.SelectedIndex + 1).ToString()}. Created by {chosenMsg.email} Date/time: {chosenMsg.dateCreated}");
+				MessageBox.Show($"Message {(adminMsgsListBox.SelectedIndex + 1).ToString()}. Created by {chosenMsg.email} Date/time: {chosenMsg.dateCreated}");
 
             }
             else
             {
-				MessageBox.Show($"Message {(msgsListBox.SelectedIndex + 1).ToString()}. Message created anonymously. Date/time: {chosenMsg.dateCreated}");
+				MessageBox.Show($"Message {(adminMsgsListBox.SelectedIndex + 1).ToString()}. Message created anonymously. Date/time: {chosenMsg.dateCreated}");
 
 			}
 		}
 
         private async void button1_Click(object sender, EventArgs e)
         {
+			// Create a list of Messages that were sent from the user's email and show it in the list box.
+			String currentUserEmail = firebaseUser.Email;
+			userMsgsListBox.Items.Clear();
 			await UpdateMessageListAsync();
-
+			userMsgList = new List<Message>(); // added to avoid object being null.
+			foreach(Message msg in msgList)
+            {
+				Console.WriteLine($"{msg.email}: {currentUserEmail}");
+				if (msg.email == currentUserEmail)
+				{
+					userMsgsListBox.Items.Add(msg.message);
+					userMsgList.Add(msg);
+				}
+            }
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void userMsgListBox_DoubleClick(object sender, EventArgs e)
         {
-
-        }
+			Message chosenMsg = userMsgList[userMsgsListBox.SelectedIndex];
+            if (!chosenMsg.anonymous)
+            {
+				MessageBox.Show($"Non-anonymous message. Created {chosenMsg.dateCreated}");
+            }
+            else
+            {
+				MessageBox.Show($"Anonymous message. Created {chosenMsg.dateCreated}");
+            }
+		}
     }
 }

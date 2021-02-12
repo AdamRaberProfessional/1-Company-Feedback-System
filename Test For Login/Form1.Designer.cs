@@ -38,9 +38,10 @@
             this.verifyPasswordLabel = new System.Windows.Forms.Label();
             this.createAccountLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.accountTypeBox = new System.Windows.Forms.ComboBox();
             this.accountTypeLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.userMsgsListBox = new System.Windows.Forms.ListBox();
+            this.userShowMsgsButton = new System.Windows.Forms.Button();
             this.anonymousCheckBox = new System.Windows.Forms.CheckBox();
             this.sendMsgButton = new System.Windows.Forms.Button();
             this.enterMsgLabel = new System.Windows.Forms.Label();
@@ -50,10 +51,10 @@
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
             this.panel3 = new System.Windows.Forms.Panel();
             this.adminSignOutButton = new System.Windows.Forms.Button();
-            this.showMsgsButton = new System.Windows.Forms.Button();
-            this.msgsListBox = new System.Windows.Forms.ListBox();
-            this.userShowMsgsButton = new System.Windows.Forms.Button();
-            this.userMsgsListBox = new System.Windows.Forms.ListBox();
+            this.showAdminMsgsButton = new System.Windows.Forms.Button();
+            this.adminMsgsListBox = new System.Windows.Forms.ListBox();
+            this.signUpCodeBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -151,7 +152,8 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.accountTypeBox);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.signUpCodeBox);
             this.panel1.Controls.Add(this.accountTypeLabel);
             this.panel1.Controls.Add(this.createAccountLabel);
             this.panel1.Controls.Add(this.verifyPasswordLabel);
@@ -168,30 +170,15 @@
             this.panel1.Size = new System.Drawing.Size(1512, 356);
             this.panel1.TabIndex = 11;
             // 
-            // accountTypeBox
-            // 
-            this.accountTypeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.accountTypeBox.FormattingEnabled = true;
-            this.accountTypeBox.Items.AddRange(new object[] {
-            "Admin",
-            "User"});
-            this.accountTypeBox.Location = new System.Drawing.Point(388, 172);
-            this.accountTypeBox.Margin = new System.Windows.Forms.Padding(4);
-            this.accountTypeBox.MaxDropDownItems = 2;
-            this.accountTypeBox.Name = "accountTypeBox";
-            this.accountTypeBox.Size = new System.Drawing.Size(338, 39);
-            this.accountTypeBox.TabIndex = 13;
-            this.accountTypeBox.Visible = false;
-            // 
             // accountTypeLabel
             // 
             this.accountTypeLabel.AutoSize = true;
             this.accountTypeLabel.Location = new System.Drawing.Point(22, 176);
             this.accountTypeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.accountTypeLabel.Name = "accountTypeLabel";
-            this.accountTypeLabel.Size = new System.Drawing.Size(188, 32);
+            this.accountTypeLabel.Size = new System.Drawing.Size(183, 32);
             this.accountTypeLabel.TabIndex = 11;
-            this.accountTypeLabel.Text = "Account Type";
+            this.accountTypeLabel.Text = "Sign-up code";
             this.accountTypeLabel.Visible = false;
             // 
             // panel2
@@ -204,12 +191,32 @@
             this.panel2.Controls.Add(this.msgBox);
             this.panel2.Controls.Add(this.accountInfoLabel);
             this.panel2.Controls.Add(this.signOutButton);
-            this.panel2.Location = new System.Drawing.Point(43, 401);
+            this.panel2.Location = new System.Drawing.Point(44, 33);
             this.panel2.Margin = new System.Windows.Forms.Padding(6);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1502, 394);
             this.panel2.TabIndex = 12;
             this.panel2.Visible = false;
+            // 
+            // userMsgsListBox
+            // 
+            this.userMsgsListBox.FormattingEnabled = true;
+            this.userMsgsListBox.ItemHeight = 31;
+            this.userMsgsListBox.Location = new System.Drawing.Point(1000, 47);
+            this.userMsgsListBox.Name = "userMsgsListBox";
+            this.userMsgsListBox.Size = new System.Drawing.Size(502, 159);
+            this.userMsgsListBox.TabIndex = 7;
+            this.userMsgsListBox.DoubleClick += new System.EventHandler(this.userMsgListBox_DoubleClick);
+            // 
+            // userShowMsgsButton
+            // 
+            this.userShowMsgsButton.Location = new System.Drawing.Point(1144, 227);
+            this.userShowMsgsButton.Name = "userShowMsgsButton";
+            this.userShowMsgsButton.Size = new System.Drawing.Size(276, 61);
+            this.userShowMsgsButton.TabIndex = 6;
+            this.userShowMsgsButton.Text = "Show my messages";
+            this.userShowMsgsButton.UseVisualStyleBackColor = true;
+            this.userShowMsgsButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // anonymousCheckBox
             // 
@@ -271,8 +278,8 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.adminSignOutButton);
-            this.panel3.Controls.Add(this.showMsgsButton);
-            this.panel3.Controls.Add(this.msgsListBox);
+            this.panel3.Controls.Add(this.showAdminMsgsButton);
+            this.panel3.Controls.Add(this.adminMsgsListBox);
             this.panel3.Location = new System.Drawing.Point(44, 56);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1520, 346);
@@ -289,45 +296,41 @@
             this.adminSignOutButton.UseVisualStyleBackColor = true;
             this.adminSignOutButton.Click += new System.EventHandler(this.adminSignOutButton_Click);
             // 
-            // showMsgsButton
+            // showAdminMsgsButton
             // 
-            this.showMsgsButton.Location = new System.Drawing.Point(36, 181);
-            this.showMsgsButton.Name = "showMsgsButton";
-            this.showMsgsButton.Size = new System.Drawing.Size(283, 75);
-            this.showMsgsButton.TabIndex = 1;
-            this.showMsgsButton.Text = "Show Messages";
-            this.showMsgsButton.UseVisualStyleBackColor = true;
-            this.showMsgsButton.Click += new System.EventHandler(this.showMsgsButton_Click);
+            this.showAdminMsgsButton.Location = new System.Drawing.Point(36, 181);
+            this.showAdminMsgsButton.Name = "showAdminMsgsButton";
+            this.showAdminMsgsButton.Size = new System.Drawing.Size(283, 75);
+            this.showAdminMsgsButton.TabIndex = 1;
+            this.showAdminMsgsButton.Text = "Show Messages";
+            this.showAdminMsgsButton.UseVisualStyleBackColor = true;
+            this.showAdminMsgsButton.Click += new System.EventHandler(this.showMsgsButton_Click);
             // 
-            // msgsListBox
+            // adminMsgsListBox
             // 
-            this.msgsListBox.FormattingEnabled = true;
-            this.msgsListBox.ItemHeight = 31;
-            this.msgsListBox.Location = new System.Drawing.Point(425, 159);
-            this.msgsListBox.Name = "msgsListBox";
-            this.msgsListBox.Size = new System.Drawing.Size(690, 159);
-            this.msgsListBox.TabIndex = 0;
-            this.msgsListBox.DoubleClick += new System.EventHandler(this.msgsListBox_DoubleClick);
+            this.adminMsgsListBox.FormattingEnabled = true;
+            this.adminMsgsListBox.ItemHeight = 31;
+            this.adminMsgsListBox.Location = new System.Drawing.Point(425, 159);
+            this.adminMsgsListBox.Name = "adminMsgsListBox";
+            this.adminMsgsListBox.Size = new System.Drawing.Size(690, 159);
+            this.adminMsgsListBox.TabIndex = 0;
+            this.adminMsgsListBox.DoubleClick += new System.EventHandler(this.msgsListBox_DoubleClick);
             // 
-            // userShowMsgsButton
+            // signUpCodeBox
             // 
-            this.userShowMsgsButton.Location = new System.Drawing.Point(1144, 227);
-            this.userShowMsgsButton.Name = "userShowMsgsButton";
-            this.userShowMsgsButton.Size = new System.Drawing.Size(276, 61);
-            this.userShowMsgsButton.TabIndex = 6;
-            this.userShowMsgsButton.Text = "Show my messages";
-            this.userShowMsgsButton.UseVisualStyleBackColor = true;
-            this.userShowMsgsButton.Click += new System.EventHandler(this.button1_Click);
+            this.signUpCodeBox.Location = new System.Drawing.Point(388, 178);
+            this.signUpCodeBox.Name = "signUpCodeBox";
+            this.signUpCodeBox.Size = new System.Drawing.Size(338, 38);
+            this.signUpCodeBox.TabIndex = 12;
             // 
-            // userMsgsListBox
+            // label1
             // 
-            this.userMsgsListBox.FormattingEnabled = true;
-            this.userMsgsListBox.ItemHeight = 31;
-            this.userMsgsListBox.Location = new System.Drawing.Point(1000, 47);
-            this.userMsgsListBox.Name = "userMsgsListBox";
-            this.userMsgsListBox.Size = new System.Drawing.Size(502, 159);
-            this.userMsgsListBox.TabIndex = 7;
-            this.userMsgsListBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(32, 314);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(620, 32);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "sign-up codes will be 00ADMIN00 or 00USER00";
             // 
             // Form1
             // 
@@ -365,18 +368,19 @@
 		private System.Windows.Forms.Button signOutButton;
         private System.Windows.Forms.Label accountInfoLabel;
         private System.Windows.Forms.Label accountTypeLabel;
-        private System.Windows.Forms.ComboBox accountTypeBox;
         private System.Windows.Forms.TextBox msgBox;
         private System.Windows.Forms.Label enterMsgLabel;
         private System.Windows.Forms.CheckBox anonymousCheckBox;
         private System.Windows.Forms.Button sendMsgButton;
         private System.Windows.Forms.PageSetupDialog pageSetupDialog1;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button showMsgsButton;
-        private System.Windows.Forms.ListBox msgsListBox;
+        private System.Windows.Forms.Button showAdminMsgsButton;
+        private System.Windows.Forms.ListBox adminMsgsListBox;
         private System.Windows.Forms.Button adminSignOutButton;
         private System.Windows.Forms.Button userShowMsgsButton;
         private System.Windows.Forms.ListBox userMsgsListBox;
+        private System.Windows.Forms.TextBox signUpCodeBox;
+        private System.Windows.Forms.Label label1;
     }
 }
 
