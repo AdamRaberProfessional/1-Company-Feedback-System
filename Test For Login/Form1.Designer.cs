@@ -216,7 +216,6 @@
             this.anonymousCheckBox.TabIndex = 5;
             this.anonymousCheckBox.Text = "Make message anonymous";
             this.anonymousCheckBox.UseVisualStyleBackColor = true;
-            this.anonymousCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // sendMsgButton
             // 
@@ -236,7 +235,6 @@
             this.enterMsgLabel.Size = new System.Drawing.Size(277, 32);
             this.enterMsgLabel.TabIndex = 3;
             this.enterMsgLabel.Text = "Enter message here:";
-            this.enterMsgLabel.Click += new System.EventHandler(this.label1_Click);
             // 
             // msgBox
             // 
@@ -285,6 +283,7 @@
             this.msgsListBox.Name = "msgsListBox";
             this.msgsListBox.Size = new System.Drawing.Size(690, 159);
             this.msgsListBox.TabIndex = 0;
+            this.msgsListBox.DoubleClick += new System.EventHandler(this.msgsListBox_DoubleClick);
             // 
             // showMsgsButton
             // 

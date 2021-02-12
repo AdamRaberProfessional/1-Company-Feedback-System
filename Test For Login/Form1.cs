@@ -23,6 +23,7 @@ namespace Test_For_Login
 		// Initialize firebase auth and create ability to get the current firebaseUser anywhere in the application.
 		private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
 		private readonly FirebaseClient databaseHandler = new FirebaseClient("https://cis-attempt-1-default-rtdb.firebaseio.com/");
+		private List<Message> messageList;
 		private AccountInfo accountData;
 		private string pageState = "signIn";
 		private Firebase.Auth.User firebaseUser;
@@ -68,24 +69,29 @@ namespace Test_For_Login
 				accountInfoLabel.Text = $"Signed in as {firebaseUser.Email}. Account type is {accountData.accountType}";
         }
 
+		private async Task UpdateMessageListAsync()
+		{
+			messageList =  await databaseHandler.Child("Messages").OnceSingleAsync<List<Message>>();
+		}
+
 		private async void AddMessage()
         {
 			// #QUERY
-			List<Message> messages = await databaseHandler.Child("Messages").OnceSingleAsync<List<Message>>();
+			await UpdateMessageListAsync();
 			// #WRITE
 			if (anonymousCheckBox.Checked == false)
 			{ 
 				// create Message with email address, add to messages, upload to firebase
 				Message tempMsg = new Message(msgBox.Text, DateTime.Now.ToString(), accountData.emailAddress); // Message that stores email
-				messages.Add(tempMsg);
-				await databaseHandler.Child("Messages").PutAsync(messages);
+				messageList.Add(tempMsg);
+				await databaseHandler.Child("Messages").PutAsync(messageList);
 			}
             else 
 			{
 				// create Message without email address, add to messages, and upload to firebase.
 				Message tempMsg = new Message(msgBox.Text, DateTime.Now.ToString()); // Message that doesn't store email
-				messages.Add(tempMsg);
-				await databaseHandler.Child("Messages").PutAsync(messages);
+				messageList.Add(tempMsg);
+				await databaseHandler.Child("Messages").PutAsync(messageList);
 			}
 			if(anonymousCheckBox.Checked == false)
             {
@@ -235,23 +241,11 @@ namespace Test_For_Login
 			}
 
         }
-        
-
 
         private void signOutButton_Click(object sender, EventArgs e)
         {
 			SignUserOut();
 		}
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void sendMsgButton_Click(object sender, EventArgs e)
         {
@@ -265,11 +259,18 @@ namespace Test_For_Login
 
         private async void showMsgsButton_Click(object sender, EventArgs e)
         {
-			List<Message> messages = await databaseHandler.Child("Messages").OnceSingleAsync<List<Message>>();
-			foreach(Message msg in messages)
+			await UpdateMessageListAsync();
+			foreach(Message msg in messageList)
             {
-
+				msgsListBox.Items.Add(msg.message);
             }
 		}
-    }
+
+		private void msgsListBox_DoubleClick(object sender, EventArgs e)
+		{
+			MessageBox.Show($"Email: {messageList[msgsListBox.SelectedIndex].email} Created {messageList[msgsListBox.SelectedIndex].dateCreated}");
+        }
+		
+
+	}
 }
