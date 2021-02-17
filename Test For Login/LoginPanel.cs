@@ -93,7 +93,9 @@ namespace Test_For_Login
 
 		private void LoginPanel_Load(object sender, EventArgs e)
 		{
-			this.BringToFront();
+			this.WindowState = FormWindowState.Minimized;
+			this.WindowState = FormWindowState.Normal;
+
 			SwitchToLogin();
 		}
 

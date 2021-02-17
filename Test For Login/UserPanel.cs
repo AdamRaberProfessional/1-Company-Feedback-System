@@ -163,9 +163,10 @@ namespace Test_For_Login
 			adminMsgsListBox.Items.Clear();
 			userMsgsListBox.Items.Clear();
 			userMsgList = null;
-			Application.Restart();
+			LoginPanel Login = new LoginPanel();
+			Login.Show();
+			this.Close();
 		}
-
 		public UserPanel()
 		{
 			InitializeComponent();
@@ -222,7 +223,7 @@ namespace Test_For_Login
 
 					DateTime feedbackDate = DateTime.Parse(msg.dateCreated);
 
-					userMsgsListBox.Items.Add(feedbackDate.ToString("MMMM dd HH:mm"));
+					userMsgsListBox.Items.Add(feedbackDate.ToString("MMMM dd h:mm tt"));
 					userMsgList.Add(msg);
 				}
 			}
