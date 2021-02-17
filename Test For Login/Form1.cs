@@ -46,18 +46,18 @@ namespace Test_For_Login
 			// Change the panel according to the panelNumber given. 
 			if(panelNumber == 1)
             {
-				panel1.Visible = true;
+				//panel1.Visible = true;
 				panel2.Visible = false;
 				panel3.Visible = false;
 			}
 			else if(panelNumber == 2)
             {
-				panel1.Visible = false;
+				//panel1.Visible = false;
 				panel2.Visible = true;
 				panel3.Visible = false;
             }else if (panelNumber == 3)
             {
-				panel1.Visible = false;
+				//panel1.Visible = false;
 				panel2.Visible = false;
 				panel3.Visible = true;
             }
@@ -167,7 +167,8 @@ namespace Test_For_Login
 			InitializeComponent();
 		}
 
-		private async void loginButton_Click(object sender, EventArgs e)
+		//delete this method from this form
+		/*private async void loginButton_Click(object sender, EventArgs e)
 		{
 			
 			if (pageState == "signIn")
@@ -275,9 +276,11 @@ namespace Test_For_Login
                     }
 				}
 			}
-		}
+		}*/
 
-        private void createAccountButton_Click(object sender, EventArgs e)
+
+		//delete this method from this form
+        /*private void createAccountButton_Click(object sender, EventArgs e)
         {
 			// Change panel1 layout based on the state of the screen.
 			if (pageState == "signIn")
@@ -307,7 +310,7 @@ namespace Test_For_Login
 
 			}
 
-        }
+        }*/
 
         private void signOutButton_Click(object sender, EventArgs e)
         {
