@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace Test_For_Login
 {
-	public partial class NewPage : Form
+	public partial class LoginPanel : Form
 	{
-		public NewPage()
+		public LoginPanel()
 		{
 			InitializeComponent();
+		}
+
+		private void NewPage_Load(object sender, EventArgs e)
+		{
+
 		}
 	}
 }
