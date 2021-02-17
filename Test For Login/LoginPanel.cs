@@ -24,7 +24,7 @@ namespace Test_For_Login
 		private string pageState = "signIn";
 
 		private Firebase.Auth.User firebaseUser;
-
+		private bool exitApplication = true;
 
 		private async void UserSignedInAsync()
 		{
@@ -35,6 +35,7 @@ namespace Test_For_Login
 			UserPanel userPanel = new UserPanel();
 			userPanel.firebaseUser = firebaseUser;
 			userPanel.Show();
+			exitApplication = false;
 			this.Close();
 		}
 
@@ -95,8 +96,16 @@ namespace Test_For_Login
 		{
 			this.WindowState = FormWindowState.Minimized;
 			this.WindowState = FormWindowState.Normal;
-
+			this.FormClosing += LoginPanel_FormClosing;
 			SwitchToLogin();
+		}
+
+		private void LoginPanel_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (exitApplication)
+			{
+				Application.Exit();
+			}
 		}
 
 		private async void loginButton_Click(object sender, EventArgs e)

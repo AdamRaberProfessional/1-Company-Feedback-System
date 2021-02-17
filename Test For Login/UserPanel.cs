@@ -25,7 +25,6 @@ namespace Test_For_Login
 		// Initialize firebase auth and create ability to get the current firebaseUser anywhere in the application.
 		private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
 		private readonly FirebaseClient databaseHandler = new FirebaseClient("https://cis-attempt-1-default-rtdb.firebaseio.com/");
-
 		private SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
 		{
 			Port = 587,
@@ -36,6 +35,8 @@ namespace Test_For_Login
 
 		private AccountInfo accountData;
 		private string pageState = "signIn";
+		private bool exitApplication = true;
+		private string feedbackText;
 		List<FeedbackMessage> msgList;
 		List<FeedbackMessage> userMsgList;
 
@@ -163,10 +164,21 @@ namespace Test_For_Login
 			adminMsgsListBox.Items.Clear();
 			userMsgsListBox.Items.Clear();
 			userMsgList = null;
+			exitApplication = false;
+			this.Close();
 			LoginPanel Login = new LoginPanel();
 			Login.Show();
-			this.Close();
 		}
+
+		private void UserPanel_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (exitApplication)
+			{
+				Application.Exit();
+			}
+			
+		}
+
 		public UserPanel()
 		{
 			InitializeComponent();
@@ -174,7 +186,18 @@ namespace Test_For_Login
 
         private void sendMsgButton_Click(object sender, EventArgs e)
         {
-			AddMessage();
+			if(sendMsgButton.Text == "Create New Feedback")
+			{
+				feedbackBox.Text = feedbackText;
+				feedbackBox.Enabled = true;
+				sendMsgButton.Text = "Send Feedback";
+				anonymousCheckBox.Visible = true;
+				enterMsgLabel.Text = $"Enter feedback message here:";
+			}
+			else if (sendMsgButton.Text == "Send Feedback")
+			{
+				AddMessage();
+			}
 		}
 
         private void adminSignOutButton_Click(object sender, EventArgs e)
@@ -223,26 +246,32 @@ namespace Test_For_Login
 
 					DateTime feedbackDate = DateTime.Parse(msg.dateCreated);
 
-					userMsgsListBox.Items.Add(feedbackDate.ToString("MMMM dd h:mm tt"));
+					userMsgsListBox.Items.Add(feedbackDate.ToString("MMMM dd,  h:mm tt"));
 					userMsgList.Add(msg);
 				}
 			}
 		}
 
-        private void userMsgListBox_DoubleClick(object sender, EventArgs e)
-        {
+
+		private void userMsgListBox_Click(object sender, EventArgs e)
+		{
 			FeedbackMessage chosenMsg = userMsgList[userMsgsListBox.SelectedIndex];
-            if (!chosenMsg.anonymous)
-            {
-				MessageBox.Show($"Non-anonymous message. Created {chosenMsg.dateCreated}");
-            }
-            else
-            {
-				MessageBox.Show($"Anonymous message. Created {chosenMsg.dateCreated}");
-            }
+			feedbackBox.Text = chosenMsg.message;
+			feedbackBox.Enabled = false;
+			sendMsgButton.Text = "Create New Feedback";
+			anonymousCheckBox.Visible = false;
+
+			if (!chosenMsg.anonymous)
+			{
+				enterMsgLabel.Text = $"Your feedback from {userMsgsListBox.SelectedItem}";
+			}
+			else
+			{
+				enterMsgLabel.Text = $"Your anonymous feedback from {userMsgsListBox.SelectedItem}";
+			}
 		}
 
-        private async void updateCompanyMessageButton_Click(object sender, EventArgs e)
+		private async void updateCompanyMessageButton_Click(object sender, EventArgs e)
         {
 			List<CompanyMessage> messages = await databaseHandler.Child("adminMessages").OnceSingleAsync<List<CompanyMessage>>();
 			CompanyMessage newMessage = new CompanyMessage(companyMsgBox.Text, DateTime.Now.ToString(), firebaseUser.Email);
@@ -262,7 +291,8 @@ namespace Test_For_Login
 		{
 			accountData = await databaseHandler.Child("accounts").Child(firebaseUser.LocalId).Child("accountInfo").OrderByKey().OnceSingleAsync<AccountInfo>();
 			accountInfoLabel.Text = $"Signed in as {firebaseUser.Email}";
-
+			feedbackText = feedbackBox.Text;
+			this.FormClosing += UserPanel_FormClosing;
 			if (accountData.accountType == "User")
 			{
 				panel2.Visible = true;
@@ -277,5 +307,7 @@ namespace Test_For_Login
 		{
 			SignUserOut();
 		}
+
+		
 	}
 }

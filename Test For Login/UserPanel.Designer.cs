@@ -73,7 +73,7 @@
 			// 
 			// feedbackBox
 			// 
-			this.feedbackBox.Location = new System.Drawing.Point(275, 96);
+			this.feedbackBox.Location = new System.Drawing.Point(260, 96);
 			this.feedbackBox.Name = "feedbackBox";
 			this.feedbackBox.Size = new System.Drawing.Size(394, 118);
 			this.feedbackBox.TabIndex = 10;
@@ -108,12 +108,12 @@
 			this.userMsgsListBox.Name = "userMsgsListBox";
 			this.userMsgsListBox.Size = new System.Drawing.Size(191, 95);
 			this.userMsgsListBox.TabIndex = 7;
-			this.userMsgsListBox.DoubleClick += new System.EventHandler(this.userMsgListBox_DoubleClick);
+			this.userMsgsListBox.Click += new System.EventHandler(this.userMsgListBox_Click);
 			// 
 			// anonymousCheckBox
 			// 
 			this.anonymousCheckBox.AutoSize = true;
-			this.anonymousCheckBox.Location = new System.Drawing.Point(276, 226);
+			this.anonymousCheckBox.Location = new System.Drawing.Point(261, 226);
 			this.anonymousCheckBox.Margin = new System.Windows.Forms.Padding(2);
 			this.anonymousCheckBox.Name = "anonymousCheckBox";
 			this.anonymousCheckBox.Size = new System.Drawing.Size(158, 17);
@@ -123,7 +123,7 @@
 			// 
 			// sendMsgButton
 			// 
-			this.sendMsgButton.Location = new System.Drawing.Point(547, 219);
+			this.sendMsgButton.Location = new System.Drawing.Point(532, 219);
 			this.sendMsgButton.Margin = new System.Windows.Forms.Padding(2);
 			this.sendMsgButton.Name = "sendMsgButton";
 			this.sendMsgButton.Size = new System.Drawing.Size(122, 28);
@@ -136,7 +136,7 @@
 			// 
 			this.enterMsgLabel.AutoSize = true;
 			this.enterMsgLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.enterMsgLabel.Location = new System.Drawing.Point(272, 73);
+			this.enterMsgLabel.Location = new System.Drawing.Point(257, 73);
 			this.enterMsgLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.enterMsgLabel.Name = "enterMsgLabel";
 			this.enterMsgLabel.Size = new System.Drawing.Size(227, 20);
