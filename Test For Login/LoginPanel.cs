@@ -31,20 +31,11 @@ namespace Test_For_Login
 			// Set accountData to match the data from the signed in user.
 			// #QUERY
 			accountData = await databaseHandler.Child("accounts").Child(firebaseUser.LocalId).Child("accountInfo").OrderByKey().OnceSingleAsync<AccountInfo>();
-			if (accountData.accountType == "User")
-			{
-				MessageBox.Show("user is user");
-				//List<CompanyMessage> messages = await databaseHandler.Child("adminMessages").OnceSingleAsync<List<CompanyMessage>>();
-				//adminMessageLabel.Text = messages[messages.Count() - 1].message;
-				//ChangePanel(2);
-			}
-			else if (accountData.accountType == "Admin")
-			{
-				MessageBox.Show("user is admin");
-				//ChangePanel(3);
-			}
-
-			//accountInfoLabel.Text = $"Signed in as {firebaseUser.Email}. Account type is {accountData.accountType}";
+					
+			UserPanel userPanel = new UserPanel();
+			userPanel.firebaseUser = firebaseUser;
+			userPanel.Show();
+			this.Close();
 		}
 
 
@@ -52,31 +43,47 @@ namespace Test_For_Login
 		{
 			// Change panel1 layout based on the state of the screen.
 			if (pageState == "signIn")
-			{
+			{			
 				pageState = "createAccount";
-				verifyPasswordLabel.Visible = true;
-				verifyPasswordBox.Visible = true;
-				signUpCodeBox.Visible = true;
-				accountTypeLabel.Visible = true;
-				createAccountButton.Text = "Sign in";
-				createAccountLabel.Text = "Already have an account? Click here to sign in";
-				loginButton.Text = "Create Account";
-				label1.Visible = true;
+				SwitchToCreateAccount();
 			}
 			else if (pageState == "createAccount")
 			{
 				pageState = "signIn";
-				verifyPasswordBox.Text = "";
-				verifyPasswordLabel.Visible = false;
-				verifyPasswordBox.Visible = false;
-				signUpCodeBox.Visible = false;
-				accountTypeLabel.Visible = false;
-				label1.Visible = false;
-				createAccountButton.Text = "Create Account";
-				loginButton.Text = "Login";
-				createAccountLabel.Text = "Don't have an account? Click here to create one";
-
+				SwitchToLogin();
 			}
+
+		}
+		private void SwitchToCreateAccount()
+		{
+			this.Size = new Size(326, 275);
+			verifyPasswordLabel.Visible = true;
+			verifyPasswordBox.Visible = true;
+			signUpCodeBox.Visible = true;
+			accountTypeLabel.Visible = true;
+			createAccountButton.Text = "Sign in";
+			createAccountButton.Location = new Point(86, 180);
+			createAccountLabel.Text = "Already have an account? Click here to sign in";
+			createAccountLabel.Location = new Point(33, 156);
+			loginButton.Text = "Create Account";
+			loginButton.Location = new Point(160, 115);
+			label1.Visible = true;
+		}
+		private void SwitchToLogin()
+		{
+			this.Size = new Size(326, 207);
+			verifyPasswordBox.Text = "";
+			verifyPasswordLabel.Visible = false;
+			verifyPasswordBox.Visible = false;
+			signUpCodeBox.Visible = false;
+			accountTypeLabel.Visible = false;
+			label1.Visible = false;
+			createAccountButton.Text = "Create Account";
+			createAccountButton.Location = new Point(86, 137);
+			loginButton.Text = "Login";
+			loginButton.Location = new Point(160, 65);
+			createAccountLabel.Text = "Don't have an account? Click here to create one";
+			createAccountLabel.Location = new Point(33, 113);
 
 		}
 		public LoginPanel()
@@ -84,10 +91,11 @@ namespace Test_For_Login
 			InitializeComponent();
 		}
 
-		private void NewPage_Load(object sender, EventArgs e)
+		private void LoginPanel_Load(object sender, EventArgs e)
 		{
-				
-	}
+			this.BringToFront();
+			SwitchToLogin();
+		}
 
 		private async void loginButton_Click(object sender, EventArgs e)
 		{

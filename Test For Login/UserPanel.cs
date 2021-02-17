@@ -20,7 +20,7 @@ using System.Net;
 
 namespace Test_For_Login
 {
-	public partial class Form1 : Form
+	public partial class UserPanel : Form
 	{
 		// Initialize firebase auth and create ability to get the current firebaseUser anywhere in the application.
 		private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
@@ -39,9 +39,9 @@ namespace Test_For_Login
 		List<FeedbackMessage> msgList;
 		List<FeedbackMessage> userMsgList;
 
-		private Firebase.Auth.User firebaseUser;
-
-		private void ChangePanel(int panelNumber)
+		public Firebase.Auth.User firebaseUser { get; set; }
+		
+		/*private void ChangePanel(int panelNumber)
         {
 			// Change the panel according to the panelNumber given. 
 			if(panelNumber == 1)
@@ -61,11 +61,11 @@ namespace Test_For_Login
 				panel2.Visible = false;
 				panel3.Visible = true;
             }
-        }
+        }*/
 
 		
 
-		private async void UserSignedInAsync()
+		/*private async void UserSignedInAsync()
         {
 			// Set accountData to match the data from the signed in user.
 			// #QUERY
@@ -82,7 +82,8 @@ namespace Test_For_Login
             }
 
 				accountInfoLabel.Text = $"Signed in as {firebaseUser.Email}. Account type is {accountData.accountType}";
-        }
+        }*/
+
 
 		private async Task UpdateMessageListAsync()
 		{
@@ -101,7 +102,7 @@ namespace Test_For_Login
 			if (anonymousCheckBox.Checked == false)
 			{ 
 				// create Message with email address, add to messages, upload to firebase
-				FeedbackMessage tempMsg = new FeedbackMessage(msgBox.Text, DateTime.Now.ToString(), firebaseUser.Email, false); // Message that stores email
+				FeedbackMessage tempMsg = new FeedbackMessage(feedbackBox.Text, DateTime.Now.ToString(), firebaseUser.Email, false); // Message that stores email
 				if(msgList != null)
                 {
 					msgList.Add(tempMsg);
@@ -111,21 +112,14 @@ namespace Test_For_Login
             else 
 			{
 				// create Message without email address, add to messages, and upload to firebase.
-				FeedbackMessage tempMsg = new FeedbackMessage(msgBox.Text, DateTime.Now.ToString(), firebaseUser.Email, true);
+				FeedbackMessage tempMsg = new FeedbackMessage(feedbackBox.Text, DateTime.Now.ToString(), firebaseUser.Email, true);
 				if (msgList != null)
 				{
 					msgList.Add(tempMsg);
                 }
 				await databaseHandler.Child("Messages").PutAsync(msgList);
 			}
-			if(anonymousCheckBox.Checked == false)
-            {
-				MessageBox.Show("Message sent");
-			}
-			else if (anonymousCheckBox.Checked == true)
-            {
-				MessageBox.Show("Anyonymous message sent");
-            }
+			
 
 			MailMessage mailMessage = new MailMessage
 			{
@@ -137,184 +131,44 @@ namespace Test_For_Login
             if (anonymousCheckBox.Checked)
             {
 				mailMessage.Body = "<body>Thank you for your input to the company! We can assure you your input was anonymous. Here is the message that you sent: <br>" +
-				$"{msgBox.Text} <br> Sent {DateTime.Now.ToString()}</body>";
+				$"{feedbackBox.Text} <br> Sent {DateTime.Now.ToString()}</body>";
             }
             else
             {
 				mailMessage.Body = "<body>Thank you for your input to the company! You chose to send it non-anonymously. Here is the message that you sent: <br>" +
-				$"{msgBox.Text} <br> Sent {DateTime.Now.ToString()}</body>";
+				$"{feedbackBox.Text} <br> Sent {DateTime.Now.ToString()}</body>";
 			}
 			mailMessage.To.Add(firebaseUser.Email);
-
+			feedbackBox.Text = "";
 			smtpClient.Send(mailMessage);
 
-			msgBox.Text = "";
+			
 			anonymousCheckBox.Checked = false;
-        }
+
+			if (anonymousCheckBox.Checked == false)
+			{
+				MessageBox.Show("Message sent");
+			}
+			else if (anonymousCheckBox.Checked == true)
+			{
+				MessageBox.Show("Anyonymous message sent");
+			}
+			userShowMsgs();
+		}
 
 		private void SignUserOut()
         {
-			ChangePanel(1);
 			firebaseUser = null;
 			accountData = null;
 			adminMsgsListBox.Items.Clear();
 			userMsgsListBox.Items.Clear();
 			userMsgList = null;
+			Application.Restart();
 		}
 
-		public Form1()
+		public UserPanel()
 		{
 			InitializeComponent();
-		}
-
-		//delete this method from this form
-		/*private async void loginButton_Click(object sender, EventArgs e)
-		{
-			
-			if (pageState == "signIn")
-			{
-				try
-				{
-					// Sign user in and set firebaseUser as the newly signed in account.
-					string email = emailBox.Text;
-					string password = passwordBox.Text;
-					FirebaseAuthLink userCredential = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
-					firebaseUser = userCredential.User;
-					UserSignedInAsync();
-				}
-				catch (Exception error)
-				{
-					if (error.Message.Contains("INVALID_EMAIL"))
-					{
-						MessageBox.Show("email must be in user@domain.com form");
-					}
-					else if (error.Message.Contains("MISSING_PASSWORD"))
-					{
-						MessageBox.Show("Must enter a password.");
-					}
-					else if (error.Message.Contains("WEAK_PASSWORD"))
-					{
-						MessageBox.Show("Password must contain at least 6 characters.");
-					}
-					else if (error.Message.Contains("WrongPassword"))
-					{
-						MessageBox.Show("Incorrect password. Please try again.");
-					}
-					else
-					{
-						MessageBox.Show(error.Message);
-					}
-				}
-			}
-			else if (pageState == "createAccount")
-			{
-				if (verifyPasswordBox.Text == passwordBox.Text && signUpCodeBox.Text != "")
-				{
-					try
-					{
-						// Create account and set firebaseUser as the newly created account. Add account info to database.
-						string email = emailBox.Text;
-						string password = passwordBox.Text;
-						string accountType = null;
-						if(signUpCodeBox.Text == "00USER00")
-                        {
-							accountType = "User";
-						}else if(signUpCodeBox.Text == "00ADMIN00"){
-							accountType = "Admin";
-                        }
-						
-						if(accountType != null)
-                        {
-							FirebaseAuthLink userCredential = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
-							firebaseUser = userCredential.User;
-							string userId = firebaseUser.LocalId;
-							// Create an accountInfo object with email and account type. Upload to firebase.
-							// #WRITE
-							AccountInfo createdAcctInfo = new AccountInfo(firebaseUser.Email, accountType);
-							await databaseHandler.Child("accounts").Child(userId).Child("accountInfo").PutAsync(createdAcctInfo);
-							UserSignedInAsync();
-                        }
-                        else
-                        {
-							MessageBox.Show("Invalid account type. All users must be part of the company.");
-                        }
-
-					}
-					catch (Exception error)
-					{
-						if (error.Message.Contains("INVALID_EMAIL"))
-						{
-							MessageBox.Show("email must be in user@domain.com form");
-						}
-						else if (error.Message.Contains("MISSING_PASSWORD"))
-						{
-							MessageBox.Show("Must enter a password.");
-						}
-						else if (error.Message.Contains("EMAIL_EXISTS"))
-						{
-							MessageBox.Show("That email already belongs to an account.");
-						}
-						else if (error.Message.Contains("WEAK_PASSWORD"))
-						{
-							MessageBox.Show("Password must contain at least 6 characters.");
-						}
-						else
-						{
-							MessageBox.Show(error.Message);
-						}
-
-					}
-				}
-				else
-				{
-					if(verifyPasswordBox.Text != passwordBox.Text)
-                    {
-						MessageBox.Show("Passwords must match.");
-                    }
-                    else if (signUpCodeBox.Text == "") {
-						MessageBox.Show("You must have an account code.");
-                    }
-				}
-			}
-		}*/
-
-
-		//delete this method from this form
-        /*private void createAccountButton_Click(object sender, EventArgs e)
-        {
-			// Change panel1 layout based on the state of the screen.
-			if (pageState == "signIn")
-			{
-				pageState = "createAccount";
-				verifyPasswordLabel.Visible = true;
-				verifyPasswordBox.Visible = true;
-				signUpCodeBox.Visible = true;
-				accountTypeLabel.Visible = true;
-				createAccountButton.Text = "Sign in";
-				createAccountLabel.Text = "Already have an account? Click here to sign in";
-				loginButton.Text = "Create Account";
-				label1.Visible = true;
-			}
-            else if(pageState == "createAccount")
-            {
-				pageState = "signIn";
-				verifyPasswordBox.Text = ""; 
-				verifyPasswordLabel.Visible = false;
-				verifyPasswordBox.Visible = false;
-				signUpCodeBox.Visible = false;
-				accountTypeLabel.Visible = false;
-				label1.Visible = false;
-				createAccountButton.Text = "Create Account";
-				loginButton.Text = "Login";
-				createAccountLabel.Text = "Don't have an account? Click here to create one";
-
-			}
-
-        }*/
-
-        private void signOutButton_Click(object sender, EventArgs e)
-        {
-			SignUserOut();
 		}
 
         private void sendMsgButton_Click(object sender, EventArgs e)
@@ -351,23 +205,28 @@ namespace Test_For_Login
 			form2.ShowDialog();
 		}
 
-        private async void button1_Click(object sender, EventArgs e)
-        {
+   
+
+		private async void userShowMsgs()
+		{
 			// Create a list of Messages that were sent from the user's email and show it in the list box.
 			String currentUserEmail = firebaseUser.Email;
 			userMsgsListBox.Items.Clear();
 			await UpdateMessageListAsync();
 			userMsgList = new List<FeedbackMessage>(); // added to avoid object being null.
-			foreach(FeedbackMessage msg in msgList)
-            {
+			foreach (FeedbackMessage msg in msgList)
+			{
 				Console.WriteLine($"{msg.email}: {currentUserEmail}");
 				if (msg.email == currentUserEmail)
 				{
-					userMsgsListBox.Items.Add(msg.message);
+
+					DateTime feedbackDate = DateTime.Parse(msg.dateCreated);
+
+					userMsgsListBox.Items.Add(feedbackDate.ToString("MMMM dd HH:mm"));
 					userMsgList.Add(msg);
 				}
-            }
-        }
+			}
+		}
 
         private void userMsgListBox_DoubleClick(object sender, EventArgs e)
         {
@@ -397,5 +256,25 @@ namespace Test_For_Login
             }
 			await databaseHandler.Child("adminMessages").PutAsync(messages);
 		}
-    }
+
+		private async void UserPanel_Load(object sender, EventArgs e)
+		{
+			accountData = await databaseHandler.Child("accounts").Child(firebaseUser.LocalId).Child("accountInfo").OrderByKey().OnceSingleAsync<AccountInfo>();
+			accountInfoLabel.Text = $"Signed in as {firebaseUser.Email}";
+
+			if (accountData.accountType == "User")
+			{
+				panel2.Visible = true;
+				userShowMsgs();
+			}else if(accountData.accountType == "Admin")
+			{
+				panel3.Visible = true;
+			}
+		}
+
+		private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SignUserOut();
+		}
+	}
 }

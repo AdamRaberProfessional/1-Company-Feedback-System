@@ -2,7 +2,6 @@ C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Test For Log
 C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Test For Login.exe
 C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Test For Login.pdb
 C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.csprojAssemblyReference.cache
-C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test_For_Login.Form1.resources
 C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test_For_Login.Properties.Resources.resources
 C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.csproj.GenerateResource.cache
 C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.csproj.CoreCompileInputs.cache
@@ -21,7 +20,6 @@ C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Microsoft.Th
 C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Newtonsoft.Json.xml
 C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Net.Http.Extensions.xml
 C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Net.Http.Primitives.xml
-C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.csproj.App.config
 C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test For Login.csproj.CopyComplete
 C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Firebase.Auth.dll
 C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Diagnostics.DiagnosticSource.dll
@@ -78,3 +76,31 @@ C:\Users\acrab\DotNetProjects\FeedBackPrototype\Test For Login\bin\Debug\LiteDB.
 C:\Users\acrab\DotNetProjects\FeedBackPrototype\Test For Login\bin\Debug\System.Reactive.xml
 C:\Users\acrab\DotNetProjects\FeedBackPrototype\Test For Login\obj\Debug\Test For Login.csprojAssemblyReference.cache
 C:\Users\acrab\DotNetProjects\FeedBackPrototype\Test For Login\bin\Debug\Firebase.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Firebase.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\LiteDB.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Newtonsoft.Json.Bson.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Newtonsoft.Json.Schema.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Buffers.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Memory.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Reactive.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Firebase.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\LiteDB.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Microsoft.IdentityModel.Logging.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Newtonsoft.Json.Bson.pdb
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Newtonsoft.Json.Bson.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\Newtonsoft.Json.Schema.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Buffers.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Memory.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Reactive.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test_For_Login.Form2.resources
+C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test_For_Login.LoginPanel.resources
+C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test_For_Login.UserPanel.resources
