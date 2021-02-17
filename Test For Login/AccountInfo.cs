@@ -17,14 +17,28 @@ namespace Test_For_Login
         }
 	}
 
-	class Message 
+	class CompanyMessage
+	{
+		public string message {get; set;}
+		public string dateCreated {get; set; }
+		public string email { get; set; }
+
+		public CompanyMessage(string msg, string date, string emailAddr)
+		{
+			message = msg;
+			dateCreated = date;
+			email = emailAddr;
+		}
+    }
+
+	public class FeedbackMessage 
 	{
 		public string message { get; set; }
 		public string dateCreated { get; set; }
 		public Boolean anonymous { get; set; }
 		public string email { get; set; }
 
-		public Message(string msg, string dateMade, string emailAddr, bool isAnonymous)
+		public FeedbackMessage(string msg, string dateMade, string emailAddr, bool isAnonymous)
         {
 			message = msg;
 			dateCreated = dateMade;
@@ -33,4 +47,8 @@ namespace Test_For_Login
         }
 
 	}
+
+	
+
+
 }

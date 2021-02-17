@@ -36,8 +36,8 @@ namespace Test_For_Login
 
 		private AccountInfo accountData;
 		private string pageState = "signIn";
-		List<Message> msgList;
-		List<Message> userMsgList;
+		List<FeedbackMessage> msgList;
+		List<FeedbackMessage> userMsgList;
 
 		private Firebase.Auth.User firebaseUser;
 
@@ -72,6 +72,8 @@ namespace Test_For_Login
 			accountData = await databaseHandler.Child("accounts").Child(firebaseUser.LocalId).Child("accountInfo").OrderByKey().OnceSingleAsync<AccountInfo>();
 			if(accountData.accountType == "User")
             {
+				List<CompanyMessage> messages = await databaseHandler.Child("adminMessages").OnceSingleAsync<List<CompanyMessage>>();
+				adminMessageLabel.Text = messages[messages.Count() - 1].message;
 				ChangePanel(2);
 			}
 			else if (accountData.accountType == "Admin")
@@ -84,10 +86,10 @@ namespace Test_For_Login
 
 		private async Task UpdateMessageListAsync()
 		{
-			msgList =  await databaseHandler.Child("Messages").OnceSingleAsync<List<Message>>();
+			msgList =  await databaseHandler.Child("Messages").OnceSingleAsync<List<FeedbackMessage>>();
 			if(msgList == null)
             {
-				msgList = new List<Message>();
+				msgList = new List<FeedbackMessage>();
             }
 		}
 
@@ -99,7 +101,7 @@ namespace Test_For_Login
 			if (anonymousCheckBox.Checked == false)
 			{ 
 				// create Message with email address, add to messages, upload to firebase
-				Message tempMsg = new Message(msgBox.Text, DateTime.Now.ToString(), firebaseUser.Email, false); // Message that stores email
+				FeedbackMessage tempMsg = new FeedbackMessage(msgBox.Text, DateTime.Now.ToString(), firebaseUser.Email, false); // Message that stores email
 				if(msgList != null)
                 {
 					msgList.Add(tempMsg);
@@ -109,7 +111,7 @@ namespace Test_For_Login
             else 
 			{
 				// create Message without email address, add to messages, and upload to firebase.
-				Message tempMsg = new Message(msgBox.Text, DateTime.Now.ToString(), firebaseUser.Email, true);
+				FeedbackMessage tempMsg = new FeedbackMessage(msgBox.Text, DateTime.Now.ToString(), firebaseUser.Email, true);
 				if (msgList != null)
 				{
 					msgList.Add(tempMsg);
@@ -125,7 +127,7 @@ namespace Test_For_Login
 				MessageBox.Show("Anyonymous message sent");
             }
 
-			var mailMessage = new MailMessage
+			MailMessage mailMessage = new MailMessage
 			{
 				From = new MailAddress("cis340capstoneteam@gmail.com"),
 				Subject = "Message sent",
@@ -288,6 +290,7 @@ namespace Test_For_Login
 				createAccountButton.Text = "Sign in";
 				createAccountLabel.Text = "Already have an account? Click here to sign in";
 				loginButton.Text = "Create Account";
+				label1.Visible = true;
 			}
             else if(pageState == "createAccount")
             {
@@ -297,9 +300,11 @@ namespace Test_For_Login
 				verifyPasswordBox.Visible = false;
 				signUpCodeBox.Visible = false;
 				accountTypeLabel.Visible = false;
+				label1.Visible = false;
 				createAccountButton.Text = "Create Account";
 				loginButton.Text = "Login";
 				createAccountLabel.Text = "Don't have an account? Click here to create one";
+
 			}
 
         }
@@ -325,7 +330,7 @@ namespace Test_For_Login
 			adminMsgsListBox.Items.Clear();
 			if(msgList != null)
             {
-				foreach (Message msg in msgList)
+				foreach (FeedbackMessage msg in msgList)
 				{
 					adminMsgsListBox.Items.Add(msg.message);
 				}
@@ -338,17 +343,9 @@ namespace Test_For_Login
 
 		private void adminMsgsListBox_DoubleClick(object sender, EventArgs e)
 		{
-			Message chosenMsg = msgList[adminMsgsListBox.SelectedIndex];
-            if (!chosenMsg.anonymous)
-            {
-				MessageBox.Show($"Message {(adminMsgsListBox.SelectedIndex + 1).ToString()}. Created by {chosenMsg.email} Date/time: {chosenMsg.dateCreated}");
-
-            }
-            else
-            {
-				MessageBox.Show($"Message {(adminMsgsListBox.SelectedIndex + 1).ToString()}. Message created anonymously. Date/time: {chosenMsg.dateCreated}");
-
-			}
+			FeedbackMessage chosenMsg = msgList[adminMsgsListBox.SelectedIndex];
+			Form2 form2 = new Form2(chosenMsg);
+			form2.ShowDialog();
 		}
 
         private async void button1_Click(object sender, EventArgs e)
@@ -357,8 +354,8 @@ namespace Test_For_Login
 			String currentUserEmail = firebaseUser.Email;
 			userMsgsListBox.Items.Clear();
 			await UpdateMessageListAsync();
-			userMsgList = new List<Message>(); // added to avoid object being null.
-			foreach(Message msg in msgList)
+			userMsgList = new List<FeedbackMessage>(); // added to avoid object being null.
+			foreach(FeedbackMessage msg in msgList)
             {
 				Console.WriteLine($"{msg.email}: {currentUserEmail}");
 				if (msg.email == currentUserEmail)
@@ -371,7 +368,7 @@ namespace Test_For_Login
 
         private void userMsgListBox_DoubleClick(object sender, EventArgs e)
         {
-			Message chosenMsg = userMsgList[userMsgsListBox.SelectedIndex];
+			FeedbackMessage chosenMsg = userMsgList[userMsgsListBox.SelectedIndex];
             if (!chosenMsg.anonymous)
             {
 				MessageBox.Show($"Non-anonymous message. Created {chosenMsg.dateCreated}");
@@ -380,6 +377,22 @@ namespace Test_For_Login
             {
 				MessageBox.Show($"Anonymous message. Created {chosenMsg.dateCreated}");
             }
+		}
+
+        private async void updateCompanyMessageButton_Click(object sender, EventArgs e)
+        {
+			List<CompanyMessage> messages = await databaseHandler.Child("adminMessages").OnceSingleAsync<List<CompanyMessage>>();
+			CompanyMessage newMessage = new CompanyMessage(companyMsgBox.Text, DateTime.Now.ToString(), firebaseUser.Email);
+			if (messages != null)
+            {
+				messages.Add(newMessage);
+            }
+            else
+            {
+				messages = new List<CompanyMessage>();
+				messages.Add(newMessage);
+            }
+			await databaseHandler.Child("adminMessages").PutAsync(messages);
 		}
     }
 }

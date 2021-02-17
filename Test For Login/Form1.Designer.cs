@@ -38,6 +38,8 @@
             this.verifyPasswordLabel = new System.Windows.Forms.Label();
             this.createAccountLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.signUpCodeBox = new System.Windows.Forms.TextBox();
             this.accountTypeLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.userMsgsListBox = new System.Windows.Forms.ListBox();
@@ -50,11 +52,14 @@
             this.signOutButton = new System.Windows.Forms.Button();
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.updateCompanyMsgButton = new System.Windows.Forms.Button();
+            this.companyMsgBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.adminSignOutButton = new System.Windows.Forms.Button();
             this.showAdminMsgsButton = new System.Windows.Forms.Button();
             this.adminMsgsListBox = new System.Windows.Forms.ListBox();
-            this.signUpCodeBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.adminMessageLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -152,6 +157,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.signUpCodeBox);
             this.panel1.Controls.Add(this.accountTypeLabel);
@@ -170,6 +176,24 @@
             this.panel1.Size = new System.Drawing.Size(1512, 356);
             this.panel1.TabIndex = 11;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(32, 314);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(620, 32);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "sign-up codes will be 00ADMIN00 or 00USER00";
+            this.label1.Visible = false;
+            // 
+            // signUpCodeBox
+            // 
+            this.signUpCodeBox.Location = new System.Drawing.Point(388, 178);
+            this.signUpCodeBox.Name = "signUpCodeBox";
+            this.signUpCodeBox.Size = new System.Drawing.Size(338, 38);
+            this.signUpCodeBox.TabIndex = 12;
+            this.signUpCodeBox.Visible = false;
+            // 
             // accountTypeLabel
             // 
             this.accountTypeLabel.AutoSize = true;
@@ -183,6 +207,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.adminMessageLabel);
             this.panel2.Controls.Add(this.userMsgsListBox);
             this.panel2.Controls.Add(this.userShowMsgsButton);
             this.panel2.Controls.Add(this.anonymousCheckBox);
@@ -277,20 +302,59 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.label3);
+            this.panel3.Controls.Add(this.updateCompanyMsgButton);
+            this.panel3.Controls.Add(this.companyMsgBox);
+            this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.adminSignOutButton);
             this.panel3.Controls.Add(this.showAdminMsgsButton);
             this.panel3.Controls.Add(this.adminMsgsListBox);
-            this.panel3.Location = new System.Drawing.Point(44, 56);
+            this.panel3.Location = new System.Drawing.Point(141, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1520, 346);
+            this.panel3.Size = new System.Drawing.Size(1520, 485);
             this.panel3.TabIndex = 13;
             this.panel3.Visible = false;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(419, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(360, 32);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Messages from employees:";
+            // 
+            // updateCompanyMsgButton
+            // 
+            this.updateCompanyMsgButton.Location = new System.Drawing.Point(957, 406);
+            this.updateCompanyMsgButton.Name = "updateCompanyMsgButton";
+            this.updateCompanyMsgButton.Size = new System.Drawing.Size(158, 48);
+            this.updateCompanyMsgButton.TabIndex = 5;
+            this.updateCompanyMsgButton.Text = "send";
+            this.updateCompanyMsgButton.UseVisualStyleBackColor = true;
+            this.updateCompanyMsgButton.Click += new System.EventHandler(this.updateCompanyMessageButton_Click);
+            // 
+            // companyMsgBox
+            // 
+            this.companyMsgBox.Location = new System.Drawing.Point(425, 346);
+            this.companyMsgBox.Name = "companyMsgBox";
+            this.companyMsgBox.Size = new System.Drawing.Size(690, 38);
+            this.companyMsgBox.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(11, 352);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(359, 32);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Update company message:";
+            // 
             // adminSignOutButton
             // 
-            this.adminSignOutButton.Location = new System.Drawing.Point(1153, 198);
+            this.adminSignOutButton.Location = new System.Drawing.Point(22, 159);
             this.adminSignOutButton.Name = "adminSignOutButton";
-            this.adminSignOutButton.Size = new System.Drawing.Size(266, 58);
+            this.adminSignOutButton.Size = new System.Drawing.Size(283, 58);
             this.adminSignOutButton.TabIndex = 2;
             this.adminSignOutButton.Text = "Sign out";
             this.adminSignOutButton.UseVisualStyleBackColor = true;
@@ -298,7 +362,7 @@
             // 
             // showAdminMsgsButton
             // 
-            this.showAdminMsgsButton.Location = new System.Drawing.Point(36, 181);
+            this.showAdminMsgsButton.Location = new System.Drawing.Point(22, 24);
             this.showAdminMsgsButton.Name = "showAdminMsgsButton";
             this.showAdminMsgsButton.Size = new System.Drawing.Size(283, 75);
             this.showAdminMsgsButton.TabIndex = 1;
@@ -310,34 +374,26 @@
             // 
             this.adminMsgsListBox.FormattingEnabled = true;
             this.adminMsgsListBox.ItemHeight = 31;
-            this.adminMsgsListBox.Location = new System.Drawing.Point(425, 159);
+            this.adminMsgsListBox.Location = new System.Drawing.Point(425, 65);
             this.adminMsgsListBox.Name = "adminMsgsListBox";
             this.adminMsgsListBox.Size = new System.Drawing.Size(690, 159);
             this.adminMsgsListBox.TabIndex = 0;
             this.adminMsgsListBox.DoubleClick += new System.EventHandler(this.adminMsgsListBox_DoubleClick);
             // 
-            // signUpCodeBox
+            // adminMessageLabel
             // 
-            this.signUpCodeBox.Location = new System.Drawing.Point(388, 178);
-            this.signUpCodeBox.Name = "signUpCodeBox";
-            this.signUpCodeBox.Size = new System.Drawing.Size(338, 38);
-            this.signUpCodeBox.TabIndex = 12;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 314);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(620, 32);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "sign-up codes will be 00ADMIN00 or 00USER00";
+            this.adminMessageLabel.AutoSize = true;
+            this.adminMessageLabel.Location = new System.Drawing.Point(21, 88);
+            this.adminMessageLabel.Name = "adminMessageLabel";
+            this.adminMessageLabel.Size = new System.Drawing.Size(433, 32);
+            this.adminMessageLabel.TabIndex = 8;
+            this.adminMessageLabel.Text = "Latest admin message goes here";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1600, 810);
-            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(6);
@@ -348,6 +404,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
 		}
@@ -381,6 +438,11 @@
         private System.Windows.Forms.ListBox userMsgsListBox;
         private System.Windows.Forms.TextBox signUpCodeBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button updateCompanyMsgButton;
+        private System.Windows.Forms.TextBox companyMsgBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label adminMessageLabel;
     }
 }
 
