@@ -43,49 +43,6 @@ namespace Test_For_Login
 
 		public Firebase.Auth.User firebaseUser { get; set; }
 		
-		/*private void ChangePanel(int panelNumber)
-        {
-			// Change the panel according to the panelNumber given. 
-			if(panelNumber == 1)
-            {
-				//panel1.Visible = true;
-				panel2.Visible = false;
-				panel3.Visible = false;
-			}
-			else if(panelNumber == 2)
-            {
-				//panel1.Visible = false;
-				panel2.Visible = true;
-				panel3.Visible = false;
-            }else if (panelNumber == 3)
-            {
-				//panel1.Visible = false;
-				panel2.Visible = false;
-				panel3.Visible = true;
-            }
-        }*/
-
-		
-
-		/*private async void UserSignedInAsync()
-        {
-			// Set accountData to match the data from the signed in user.
-			// #QUERY
-			accountData = await databaseHandler.Child("accounts").Child(firebaseUser.LocalId).Child("accountInfo").OrderByKey().OnceSingleAsync<AccountInfo>();
-			if(accountData.accountType == "User")
-            {
-				List<CompanyMessage> messages = await databaseHandler.Child("adminMessages").OnceSingleAsync<List<CompanyMessage>>();
-				adminMessageLabel.Text = messages[messages.Count() - 1].message;
-				ChangePanel(2);
-			}
-			else if (accountData.accountType == "Admin")
-            {
-				ChangePanel(3);
-            }
-
-				accountInfoLabel.Text = $"Signed in as {firebaseUser.Email}. Account type is {accountData.accountType}";
-        }*/
-
 
 		private async Task UpdateMessageListAsync()
 		{
@@ -240,22 +197,7 @@ namespace Test_For_Login
 			
 			
 		}
-        /*private async void showMsgsButton_Click(object sender, EventArgs e)
-        {
-			await UpdateMessageListAsync();
-			adminMsgsListBox.Items.Clear();
-			if(msgList != null)
-            {
-				foreach (FeedbackMessage msg in msgList)
-				{
-					adminMsgsListBox.Items.Add(msg.message);
-				}
-            }
-            else if(msgList == null)
-            {
-				MessageBox.Show("No messages to show");
-            }
-		}*/
+
 
 		private void adminMsgsListBox_DoubleClick(object sender, EventArgs e)
 		{
@@ -269,7 +211,7 @@ namespace Test_For_Login
 			try
 			{
 				adminChosenMsg = msgList[adminMsgsListBox.SelectedIndex];
-				this.Size = new Size(768, 367);
+				this.Size = new Size(859, 367);
 				adminFeedbackBox.Visible = true;
 				replyButton.Visible = true;
 				adminFeedbackBox.Text = adminChosenMsg.message;
@@ -302,18 +244,40 @@ namespace Test_For_Login
 			userMsgsListBox.Items.Clear();
 			await UpdateMessageListAsync();
 			userMsgList = new List<FeedbackMessage>(); // added to avoid object being null.
+			DateTime newestFeedback = DateTime.Now.AddDays(-10000);
+			DateTime currentFeedback;
+
 			foreach (FeedbackMessage msg in msgList)
 			{
 				Console.WriteLine($"{msg.email}: {currentUserEmail}");
 				if (msg.email == currentUserEmail)
 				{
-
-					string feedbackDate = DateTime.Parse(msg.dateCreated).ToString("MMMM dd,  h:mm tt");
+					currentFeedback = DateTime.Parse(msg.dateCreated);
+					string feedbackDate = currentFeedback.ToString("MMMM dd,  h:mm tt");
 
 					userMsgsListBox.Items.Add(feedbackDate);
 					userMsgList.Add(msg);
+					
+					if(currentFeedback > newestFeedback)
+					{
+						newestFeedback = currentFeedback;
+					}
 				}
 			}
+			if(newestFeedback > DateTime.Now.AddDays(-7))
+			{
+				string eligible = newestFeedback.AddDays(7).ToString("MMMM dd, h:mm tt");
+
+				eligibleLabel.Visible = true;
+				anonymousCheckBox.Visible = false;
+				feedbackBox.Enabled = false;
+				sendMsgButton.Visible = false;
+
+				eligibleLabel.Text = $"You have sent feedback in the last 7 days and cannot send anymore until {eligible}";			
+				enterMsgLabel.Text =  "";
+				
+			}
+
 		}
 
 
@@ -358,6 +322,8 @@ namespace Test_For_Login
 				messages.Add(newMessage);
             }
 			await databaseHandler.Child("adminMessages").PutAsync(messages);
+			MessageBox.Show("Company Message Updated", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			companyMsgBox.Text = "";
 		}
 
 		private async void UserPanel_Load(object sender, EventArgs e)
@@ -376,7 +342,7 @@ namespace Test_For_Login
 				userShowMsgs();
 			}else if(accountData.accountType == "Admin")
 			{		
-				this.Size = new Size(305, 367);
+				this.Size = new Size(319, 362);
 				panel3.Visible = true;
 				panel3.Location = new Point(11, 26);
 				adminSignedInLabel.Text = $"Signed in as Admin with {firebaseUser.Email}";
@@ -396,7 +362,7 @@ namespace Test_For_Login
 
 		private void replyButton_Click(object sender, EventArgs e)
 		{
-			this.Size = new Size(768, 556);
+			this.Size = new Size(859, 556);
 			nameBox.Visible = true;
 			emailBox.Visible = true;
 			sendEmailButton.Visible = true;
@@ -455,7 +421,7 @@ namespace Test_For_Login
 			emailBox.Visible = false;
 
 			sendEmailButton.Visible = false;
-			this.Size = new Size(768, 367);
+			this.Size = new Size(859, 367);
 			mailMessage.To.Add(adminChosenMsg.email);
 			smtpClient.Send(mailMessage);
 			if (!adminChosenMsg.anonymous)

@@ -54,6 +54,7 @@
 			this.accountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.signOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.bgw_msgList = new System.ComponentModel.BackgroundWorker();
+			this.eligibleLabel = new System.Windows.Forms.Label();
 			this.panel2.SuspendLayout();
 			this.panel3.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
@@ -61,6 +62,7 @@
 			// 
 			// panel2
 			// 
+			this.panel2.Controls.Add(this.eligibleLabel);
 			this.panel2.Controls.Add(this.feedbackBox);
 			this.panel2.Controls.Add(this.userFeedbackHistoryLabel);
 			this.panel2.Controls.Add(this.userMsgsListBox);
@@ -68,7 +70,7 @@
 			this.panel2.Controls.Add(this.sendMsgButton);
 			this.panel2.Controls.Add(this.enterMsgLabel);
 			this.panel2.Controls.Add(this.accountInfoLabel);
-			this.panel2.Location = new System.Drawing.Point(833, 306);
+			this.panel2.Location = new System.Drawing.Point(11, 530);
 			this.panel2.Margin = new System.Windows.Forms.Padding(2);
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(679, 236);
@@ -164,7 +166,7 @@
 			this.panel3.Location = new System.Drawing.Point(11, 41);
 			this.panel3.Margin = new System.Windows.Forms.Padding(2);
 			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(727, 471);
+			this.panel3.Size = new System.Drawing.Size(818, 471);
 			this.panel3.TabIndex = 13;
 			this.panel3.Visible = false;
 			// 
@@ -263,7 +265,7 @@
 			this.updateCompanyMsgButton.Location = new System.Drawing.Point(183, 242);
 			this.updateCompanyMsgButton.Margin = new System.Windows.Forms.Padding(2);
 			this.updateCompanyMsgButton.Name = "updateCompanyMsgButton";
-			this.updateCompanyMsgButton.Size = new System.Drawing.Size(72, 29);
+			this.updateCompanyMsgButton.Size = new System.Drawing.Size(92, 29);
 			this.updateCompanyMsgButton.TabIndex = 5;
 			this.updateCompanyMsgButton.Text = "send";
 			this.updateCompanyMsgButton.UseVisualStyleBackColor = true;
@@ -274,7 +276,7 @@
 			this.companyMsgBox.Location = new System.Drawing.Point(11, 218);
 			this.companyMsgBox.Margin = new System.Windows.Forms.Padding(2);
 			this.companyMsgBox.Name = "companyMsgBox";
-			this.companyMsgBox.Size = new System.Drawing.Size(244, 20);
+			this.companyMsgBox.Size = new System.Drawing.Size(264, 20);
 			this.companyMsgBox.TabIndex = 4;
 			// 
 			// label2
@@ -294,7 +296,7 @@
 			this.adminMsgsListBox.Location = new System.Drawing.Point(9, 59);
 			this.adminMsgsListBox.Margin = new System.Windows.Forms.Padding(2);
 			this.adminMsgsListBox.Name = "adminMsgsListBox";
-			this.adminMsgsListBox.Size = new System.Drawing.Size(246, 108);
+			this.adminMsgsListBox.Size = new System.Drawing.Size(266, 108);
 			this.adminMsgsListBox.TabIndex = 0;
 			this.adminMsgsListBox.Click += new System.EventHandler(this.adminMsgsListBox_Click);
 			this.adminMsgsListBox.DoubleClick += new System.EventHandler(this.adminMsgsListBox_DoubleClick);
@@ -306,7 +308,7 @@
             this.accountToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(752, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(1022, 24);
 			this.menuStrip1.TabIndex = 14;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -329,11 +331,22 @@
 			// 
 			this.bgw_msgList.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_msgList_DoWork);
 			// 
+			// eligibleLabel
+			// 
+			this.eligibleLabel.AutoSize = true;
+			this.eligibleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.eligibleLabel.Location = new System.Drawing.Point(6, 219);
+			this.eligibleLabel.Name = "eligibleLabel";
+			this.eligibleLabel.Size = new System.Drawing.Size(90, 13);
+			this.eligibleLabel.TabIndex = 11;
+			this.eligibleLabel.Text = "Feedback History";
+			this.eligibleLabel.Visible = false;
+			// 
 			// UserPanel
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(752, 517);
+			this.ClientSize = new System.Drawing.Size(1022, 774);
 			this.Controls.Add(this.panel3);
 			this.Controls.Add(this.panel2);
 			this.Controls.Add(this.menuStrip1);
@@ -380,6 +393,7 @@
 		private System.Windows.Forms.Button sendEmailButton;
 		private System.Windows.Forms.TextBox nameBox;
 		private System.Windows.Forms.RichTextBox emailBox;
+		private System.Windows.Forms.Label eligibleLabel;
 	}
 }
 
