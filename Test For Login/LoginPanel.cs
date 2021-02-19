@@ -31,12 +31,24 @@ namespace Test_For_Login
 			// Set accountData to match the data from the signed in user.
 			// #QUERY
 			accountData = await databaseHandler.Child("accounts").Child(firebaseUser.LocalId).Child("accountInfo").OrderByKey().OnceSingleAsync<AccountInfo>();
-					
+
+
+		
+
 			UserPanel userPanel = new UserPanel();
 			userPanel.firebaseUser = firebaseUser;
 			userPanel.Show();
 			exitApplication = false;
 			this.Close();
+
+			if (accountData.accountType == "User")
+			{
+				List<CompanyMessage> messages = await databaseHandler.Child("adminMessages").OnceSingleAsync<List<CompanyMessage>>();
+
+				//shows most recent admin message
+				MessageBox.Show(messages[messages.Count() - 1].message, "Message from your Admin", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+
 		}
 
 

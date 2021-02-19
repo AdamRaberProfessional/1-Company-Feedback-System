@@ -90,5 +90,25 @@ namespace Test_For_Login
             sendEmailButton.Visible = false;
 
         }
-    }
+
+		private void nameBox_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void emailBox_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void emailLabel_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void nameLabel_Click(object sender, EventArgs e)
+		{
+
+		}
+	}
 }
