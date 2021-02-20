@@ -23,20 +23,18 @@ namespace Test_For_Login
 		// Initialize firebase auth and create ability to get the current firebaseUser anywhere in the application.
 		private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
 		private readonly FirebaseClient databaseHandler = new FirebaseClient("https://cis-attempt-1-default-rtdb.firebaseio.com/");
-		private SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
+		private readonly SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
 		{
 			Port = 587,
 			Credentials = new NetworkCredential("cis340adam@gmail.com", "plsdon'thack"),
 			EnableSsl = true,
 		};
 
-
-		private AccountInfo accountData;
 		private bool exitApplication = true;
 		private string feedbackText;
 		private FeedbackMessage adminChosenMsg;
 		List<FeedbackMessage> msgList;
-		List<FeedbackMessage> userMsgList;
+		List<FeedbackMessage> userSpecificMsgList;
 
 		public Firebase.Auth.User firebaseUser { get; set; }
 
@@ -118,10 +116,9 @@ namespace Test_For_Login
 		private void SignUserOut()
         {
 			firebaseUser = null;
-			accountData = null;
 			adminMsgsListBox.Items.Clear();
 			userMsgsListBox.Items.Clear();
-			userMsgList = null;
+			userSpecificMsgList = null;
 			exitApplication = false;
 			this.Close();
 			LoginPanel Login = new LoginPanel();
@@ -190,7 +187,7 @@ namespace Test_For_Login
 			String currentUserEmail = firebaseUser.Email;
 			userMsgsListBox.Items.Clear();
 			await UpdateMessageListAsync();
-			userMsgList = new List<FeedbackMessage>(); // added to avoid object being null.
+			userSpecificMsgList = new List<FeedbackMessage>(); // added to avoid object being null.
 			DateTime newestFeedback = DateTime.Now.AddDays(-10000);
 			DateTime currentFeedback;
 
@@ -203,7 +200,7 @@ namespace Test_For_Login
 					string feedbackDate = currentFeedback.ToString("MMMM dd,  h:mm tt");
 
 					userMsgsListBox.Items.Add(feedbackDate);
-					userMsgList.Add(msg);
+					userSpecificMsgList.Add(msg);
 					
 					if(currentFeedback > newestFeedback)
 					{
@@ -235,7 +232,7 @@ namespace Test_For_Login
 			
 			try
 			{
-				FeedbackMessage chosenMsg = userMsgList[userMsgsListBox.SelectedIndex];
+				FeedbackMessage chosenMsg = userSpecificMsgList[userMsgsListBox.SelectedIndex];
 				feedbackBox.Text = chosenMsg.message;
 				feedbackBox.Enabled = false;
 				sendMsgButton.Text = "Create New Feedback";
@@ -277,7 +274,7 @@ namespace Test_For_Login
 
 		private async void UserPanel_Load(object sender, EventArgs e)
 		{
-			accountData = await databaseHandler.Child("accounts").Child(firebaseUser.LocalId).Child("accountInfo").OrderByKey().OnceSingleAsync<AccountInfo>();
+			AccountInfo accountData = await databaseHandler.Child("accounts").Child(firebaseUser.LocalId).Child("accountInfo").OrderByKey().OnceSingleAsync<AccountInfo>();
 			
 			feedbackText = feedbackBox.Text;
 			this.FormClosing += UserPanel_FormClosing;
@@ -363,13 +360,6 @@ namespace Test_For_Login
 				MessageBox.Show("Cannot send blank or unedited email", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return;		
 			}
-			
-			smtpClient = new SmtpClient("smtp.gmail.com")
-			{
-				Port = 587,
-				Credentials = new NetworkCredential("cis340adam@gmail.com", "plsdon'thack"),
-				EnableSsl = true,
-			};
 
 			MailMessage mailMessage = new MailMessage
 			{

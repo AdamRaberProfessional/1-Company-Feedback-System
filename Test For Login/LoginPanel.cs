@@ -11,7 +11,6 @@ namespace Test_For_Login
 {
     public partial class LoginPanel : Form
     {
-
         // Initialize firebase auth and create ability to get the current firebaseUser anywhere in the application.
         private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
         private readonly FirebaseClient databaseHandler = new FirebaseClient("https://cis-attempt-1-default-rtdb.firebaseio.com/");
