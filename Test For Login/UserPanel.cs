@@ -271,8 +271,8 @@ namespace Test_For_Login
 				messages.Add(newMessage);
             }
 			await databaseHandler.Child("adminMessages").PutAsync(messages);
-			MessageBox.Show("Company Message Updated", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
 			companyMsgBox.Text = "";
+			MessageBox.Show("Company Message Updated", "Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
 		private async void UserPanel_Load(object sender, EventArgs e)
@@ -377,9 +377,20 @@ namespace Test_For_Login
 				From = new MailAddress("cis340adam@gmail.com"),
 				Subject = "Message sent",
 				IsBodyHtml = false,			
-				Body = $"{nameBox.Text} replying to your message sent on {adminChosenMsg.dateCreated}\n" +
-				$"Your message: {adminChosenMsg.message} \nTheir message: {emailBox.Text}"
 			};
+
+            if (adminChosenMsg.anonymous)
+            {
+				mailMessage.Body = $"{nameBox.Text} is replying to your anonymous message sent on {adminChosenMsg.dateCreated}\n" +
+				$"Your message: \n{adminChosenMsg.message} \n\nTheir message: {emailBox.Text}";
+
+            }
+            else
+            {
+				mailMessage.Body = $"{nameBox.Text} is replying to your message sent on {adminChosenMsg.dateCreated}\n" +
+			   $"Your message: \n{adminChosenMsg.message} \n\nTheir message: {emailBox.Text}";
+
+			}
 
 			nameBox.Text = "Enter your name here";
 			nameBox.Visible = false;
