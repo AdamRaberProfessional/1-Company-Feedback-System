@@ -83,19 +83,19 @@ namespace Test_For_Login
 			MailMessage mailMessage = new MailMessage
 			{
 				From = new MailAddress("cis340adam@gmail.com"),
-				Subject = "Message sent",
-				IsBodyHtml = true,
+				Subject = "Thank you for your feedback!",
+				IsBodyHtml = false,
 			};
 
             if (anonymousCheckBox.Checked)
             {
-				mailMessage.Body = "<body>Thank you for your input to the company! We can assure you your input was anonymous. Here is the message that you sent: <br>" +
-				$"{feedbackBox.Text} <br> Sent {DateTime.Now.ToString()}</body>";
+				mailMessage.Body = "Thank you for your input to the company! We can assure you your input was anonymous. Here is the message that you sent:\n\n" +
+				$"{feedbackBox.Text} \n\nFeedback sent {DateTime.Now.ToString()}";
             }
             else
             {
-				mailMessage.Body = "<body>Thank you for your input to the company! You chose to send it non-anonymously. Here is the message that you sent: <br>" +
-				$"{feedbackBox.Text} <br> Sent {DateTime.Now.ToString()}</body>";
+				mailMessage.Body = "Thank you for your input to the company! You chose to send it non-anonymously. Here is the message that you sent: \n\n" +
+				$"{feedbackBox.Text} \n\nFeedback sent {DateTime.Now.ToString()}";
 			}
 
 			feedbackBox.Text = "What's one thing you like about working here?\n\n\nWhats one thing we can improve, and how can we improve it?\n\n\nAny other suggestions?";
@@ -376,9 +376,9 @@ namespace Test_For_Login
 
 				From = new MailAddress("cis340adam@gmail.com"),
 				Subject = "Message sent",
-				IsBodyHtml = true,			
-				Body = $"<body>{nameBox.Text} replying to your message sent on {adminChosenMsg.dateCreated}<br>" +
-				$"Your message: {adminChosenMsg.message} <br>Their message: {emailBox.Text}</body>"
+				IsBodyHtml = false,			
+				Body = $"{nameBox.Text} replying to your message sent on {adminChosenMsg.dateCreated}\n" +
+				$"Your message: {adminChosenMsg.message} \nTheir message: {emailBox.Text}"
 			};
 
 			nameBox.Text = "Enter your name here";
