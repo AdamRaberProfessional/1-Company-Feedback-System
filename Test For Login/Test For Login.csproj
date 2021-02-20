@@ -247,18 +247,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseClasses.cs" />
-    <Compile Include="CodeFile1.cs" />
     <Compile Include="UserPanel.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserPanel.Designer.cs">
       <DependentUpon>UserPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginPanel.cs">
       <SubType>Form</SubType>
@@ -270,9 +263,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="UserPanel.resx">
       <DependentUpon>UserPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginPanel.resx">
       <DependentUpon>LoginPanel.cs</DependentUpon>

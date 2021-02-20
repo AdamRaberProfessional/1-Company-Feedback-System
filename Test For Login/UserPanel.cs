@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Firebase.Database;
 using Firebase.Database.Query;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Net.Mail;
 using System.Net;
 
@@ -28,13 +26,12 @@ namespace Test_For_Login
 		private SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
 		{
 			Port = 587,
-			Credentials = new NetworkCredential("cis340capstoneteam@gmail.com", "capston3!"),
+			Credentials = new NetworkCredential("cis340adam@gmail.com", "plsdon'thack"),
 			EnableSsl = true,
 		};
 
 
 		private AccountInfo accountData;
-		private string pageState = "signIn";
 		private bool exitApplication = true;
 		private string feedbackText;
 		private FeedbackMessage adminChosenMsg;
@@ -42,7 +39,11 @@ namespace Test_For_Login
 		List<FeedbackMessage> userMsgList;
 
 		public Firebase.Auth.User firebaseUser { get; set; }
-		
+
+		public UserPanel()
+		{
+			InitializeComponent();
+		}
 
 		private async Task UpdateMessageListAsync()
 		{
@@ -53,7 +54,7 @@ namespace Test_For_Login
             }
 		}
 
-		private async void AddMessage()
+		private async void AddMessageAsync()
         {
 			// #QUERY
 			await UpdateMessageListAsync();
@@ -81,7 +82,7 @@ namespace Test_For_Login
 
 			MailMessage mailMessage = new MailMessage
 			{
-				From = new MailAddress("cis340capstoneteam@gmail.com"),
+				From = new MailAddress("cis340adam@gmail.com"),
 				Subject = "Message sent",
 				IsBodyHtml = true,
 			};
@@ -96,23 +97,22 @@ namespace Test_For_Login
 				mailMessage.Body = "<body>Thank you for your input to the company! You chose to send it non-anonymously. Here is the message that you sent: <br>" +
 				$"{feedbackBox.Text} <br> Sent {DateTime.Now.ToString()}</body>";
 			}
-			mailMessage.To.Add(firebaseUser.Email);
-			feedbackBox.Text = "";
-			userShowMsgs();
+
+			feedbackBox.Text = "What's one thing you like about working here?\n\n\nWhats one thing we can improve, and how can we improve it?\n\n\nAny other suggestions?";
+			ShowUserFeedbackAsync();
 			if (anonymousCheckBox.Checked == false)
 			{
-				MessageBox.Show("Message sent");
+				MessageBox.Show("Feedback sent");
 			}
 			else if (anonymousCheckBox.Checked == true)
 			{
-				MessageBox.Show("Anyonymous message sent");
+				MessageBox.Show("Anyonymous feedback sent");
 			}
-			
-
-			smtpClient.Send(mailMessage);
 			anonymousCheckBox.Checked = false;
 
-			
+			mailMessage.To.Add(firebaseUser.Email);
+
+			smtpClient.Send(mailMessage);		
 		}
 
 		private void SignUserOut()
@@ -130,16 +130,12 @@ namespace Test_For_Login
 
 		private void UserPanel_FormClosing(object sender, FormClosingEventArgs e)
 		{
+			// close the application unless the user is being signed out
 			if (exitApplication)
 			{
 				Application.Exit();
 			}
 			
-		}
-
-		public UserPanel()
-		{
-			InitializeComponent();
 		}
 
         private void sendMsgButton_Click(object sender, EventArgs e)
@@ -154,57 +150,10 @@ namespace Test_For_Login
 			}
 			else if (sendMsgButton.Text == "Send Feedback")
 			{
-				AddMessage();
+				AddMessageAsync();
 			}
 		}
 
-        private void adminSignOutButton_Click(object sender, EventArgs e)
-        {
-			SignUserOut();
-        }
-
-
-		private async void showMessages()
-		{
-			await UpdateMessageListAsync();
-			if (InvokeRequired)
-			{
-				this.Invoke(new MethodInvoker(delegate
-				{
-					adminMsgsListBox.Items.Clear();
-					if (msgList != null)
-					{
-						foreach (FeedbackMessage msg in msgList)
-						{
-							string feedbackDate = DateTime.Parse(msg.dateCreated).ToString("MMMM dd,  h:mm tt");
-
-							string email = msg.email;
-							if (msg.anonymous)
-							{
-								email = "anonymous";
-							}
-						
-							
-							adminMsgsListBox.Items.Add($"{feedbackDate} ( {email} )");
-						}
-					}
-					else if (msgList == null)
-					{
-						MessageBox.Show("No messages to show");
-					}
-				}));
-			}
-			
-			
-		}
-
-
-		private void adminMsgsListBox_DoubleClick(object sender, EventArgs e)
-		{
-			FeedbackMessage chosenMsg = msgList[adminMsgsListBox.SelectedIndex];
-			Form2 form2 = new Form2(chosenMsg);
-			form2.ShowDialog();
-		}
 
 		private void adminMsgsListBox_Click(object sender, EventArgs e)
 		{
@@ -235,11 +184,9 @@ namespace Test_For_Login
 		}
 
 
-
-
-		private async void userShowMsgs()
+		private async void ShowUserFeedbackAsync()
 		{
-			// Create a list of Messages that were sent from the user's email and show it in the list box.
+			// Create a list of feedback that were sent from the user's email and show it in the list box.
 			String currentUserEmail = firebaseUser.Email;
 			userMsgsListBox.Items.Clear();
 			await UpdateMessageListAsync();
@@ -264,20 +211,22 @@ namespace Test_For_Login
 					}
 				}
 			}
-			if(newestFeedback > DateTime.Now.AddDays(-7))
-			{
-				string eligible = newestFeedback.AddDays(7).ToString("MMMM dd, h:mm tt");
+            if (!LoginPanel.devMode)
+            {
+				if (newestFeedback > DateTime.Now.AddDays(-7))
+				{
+					string eligible = newestFeedback.AddDays(7).ToString("MMMM dd, h:mm tt");
 
-				eligibleLabel.Visible = true;
-				anonymousCheckBox.Visible = false;
-				feedbackBox.Enabled = false;
-				sendMsgButton.Visible = false;
+					eligibleLabel.Visible = true;
+					anonymousCheckBox.Visible = false;
+					feedbackBox.Enabled = false;
+					sendMsgButton.Visible = false;
 
-				eligibleLabel.Text = $"You have sent feedback in the last 7 days and cannot send anymore until {eligible}";			
-				enterMsgLabel.Text =  "";
-				
+					eligibleLabel.Text = $"You have sent feedback in the last 7 days and cannot send anymore until {eligible}";
+					enterMsgLabel.Text = "";
+
+				}
 			}
-
 		}
 
 
@@ -335,18 +284,16 @@ namespace Test_For_Login
 			
 			if (accountData.accountType == "User")
 			{
-				this.Size = new Size(723, 317);
 				panel2.Visible = true;
 				panel2.Location = new Point(11, 26);
 				accountInfoLabel.Text = $"Signed in as {firebaseUser.Email}";
-				userShowMsgs();
+				ShowUserFeedbackAsync();
 			}else if(accountData.accountType == "Admin")
 			{		
-				this.Size = new Size(319, 362);
 				panel3.Visible = true;
 				panel3.Location = new Point(11, 26);
 				adminSignedInLabel.Text = $"Signed in as Admin with {firebaseUser.Email}";
-				bgw_msgList.RunWorkerAsync();	
+				RenderAdminMsgs();
 			}
 		}
 
@@ -355,9 +302,29 @@ namespace Test_For_Login
 			SignUserOut();
 		}
 
-		private void bgw_msgList_DoWork(object sender, DoWorkEventArgs e)
-		{
-			showMessages();
+		private async void RenderAdminMsgs()
+        {
+			await UpdateMessageListAsync();
+
+			adminMsgsListBox.Items.Clear();
+			if (msgList != null)
+			{
+				foreach (FeedbackMessage msg in msgList)
+				{
+					string feedbackDate = DateTime.Parse(msg.dateCreated).ToString("MMMM dd,  h:mm tt");
+
+					string email = msg.email;
+					if (msg.anonymous)
+					{
+						email = "anonymous";
+					}
+					adminMsgsListBox.Items.Add($"{feedbackDate} ( {email} )");
+				}
+			}
+			else if (msgList == null)
+			{
+				MessageBox.Show("No messages to show");
+			}
 		}
 
 		private void replyButton_Click(object sender, EventArgs e)
@@ -400,14 +367,14 @@ namespace Test_For_Login
 			smtpClient = new SmtpClient("smtp.gmail.com")
 			{
 				Port = 587,
-				Credentials = new NetworkCredential("cis340capstoneteam@gmail.com", "capston3!"),
+				Credentials = new NetworkCredential("cis340adam@gmail.com", "plsdon'thack"),
 				EnableSsl = true,
 			};
 
 			MailMessage mailMessage = new MailMessage
 			{
 
-				From = new MailAddress("cis340capstoneteam@gmail.com"),
+				From = new MailAddress("cis340adam@gmail.com"),
 				Subject = "Message sent",
 				IsBodyHtml = true,			
 				Body = $"<body>{nameBox.Text} replying to your message sent on {adminChosenMsg.dateCreated}<br>" +
