@@ -1,0 +1,2 @@
+
+Our instructor encouraged us to put this project on our github. This project was the first time touching C# for me. Most of the class chose to do the project in Python, our previous classes language, but we chose .NET because of how popular it is with companies. Since I knew how to use Firebase from mobile app dev, and since I was eager to get the project done early, I implemented Firebase and got all the basic mechanics done myself. After that, we went back through it together to style it and make it look like a real application.
