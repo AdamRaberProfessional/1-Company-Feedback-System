@@ -14,7 +14,6 @@ using System.Net.Mail;
 using System.Net;
 
 
-// Search for #QUERY for an example of querying the database and #WRITE for an example of writing to the database.
 
 namespace Test_For_Login
 {
@@ -33,10 +32,10 @@ namespace Test_For_Login
 		private bool exitApplication = true;
 		private string feedbackText;
 		private FeedbackMessage adminChosenMsg;
-		List<FeedbackMessage> msgList;
-		List<FeedbackMessage> userSpecificMsgList;
+		private List<FeedbackMessage> msgList;
+		private List<FeedbackMessage> userSpecificMsgList;
 
-		public Firebase.Auth.User firebaseUser { get; set; }
+		public Firebase.Auth.User FirebaseUser { get; set; }
 
 		public UserPanel()
 		{
@@ -54,13 +53,12 @@ namespace Test_For_Login
 
 		private async void AddMessageAsync()
         {
-			// #QUERY
 			await UpdateMessageListAsync();
-			// #WRITE
+			
 			if (anonymousCheckBox.Checked == false)
 			{ 
 				// create Message with email address, add to messages, upload to firebase
-				FeedbackMessage tempMsg = new FeedbackMessage(feedbackBox.Text, DateTime.Now.ToString(), firebaseUser.Email, false); // Message that stores email
+				FeedbackMessage tempMsg = new FeedbackMessage(feedbackBox.Text, DateTime.Now.ToString(), FirebaseUser.Email, false); // Message that stores email
 				if(msgList != null)
                 {
 					msgList.Add(tempMsg);
@@ -70,7 +68,7 @@ namespace Test_For_Login
             else 
 			{
 				// create Message without email address, add to messages, and upload to firebase.
-				FeedbackMessage tempMsg = new FeedbackMessage(feedbackBox.Text, DateTime.Now.ToString(), firebaseUser.Email, true);
+				FeedbackMessage tempMsg = new FeedbackMessage(feedbackBox.Text, DateTime.Now.ToString(), FirebaseUser.Email, true);
 				if (msgList != null)
 				{
 					msgList.Add(tempMsg);
@@ -108,14 +106,14 @@ namespace Test_For_Login
 			}
 			anonymousCheckBox.Checked = false;
 
-			mailMessage.To.Add(firebaseUser.Email);
+			mailMessage.To.Add(FirebaseUser.Email);
 
 			smtpClient.Send(mailMessage);		
 		}
 
 		private void SignUserOut()
         {
-			firebaseUser = null;
+			FirebaseUser = null;
 			adminMsgsListBox.Items.Clear();
 			userMsgsListBox.Items.Clear();
 			userSpecificMsgList = null;
@@ -184,7 +182,7 @@ namespace Test_For_Login
 		private async void ShowUserFeedbackAsync()
 		{
 			// Create a list of feedback that were sent from the user's email and show it in the list box.
-			String currentUserEmail = firebaseUser.Email;
+			String currentUserEmail = FirebaseUser.Email;
 			userMsgsListBox.Items.Clear();
 			await UpdateMessageListAsync();
 			userSpecificMsgList = new List<FeedbackMessage>(); // added to avoid object being null.
@@ -257,7 +255,7 @@ namespace Test_For_Login
 		private async void updateCompanyMessageButton_Click(object sender, EventArgs e)
         {
 			List<CompanyMessage> messages = await databaseHandler.Child("adminMessages").OnceSingleAsync<List<CompanyMessage>>();
-			CompanyMessage newMessage = new CompanyMessage(companyMsgBox.Text, DateTime.Now.ToString(), firebaseUser.Email);
+			CompanyMessage newMessage = new CompanyMessage(companyMsgBox.Text, DateTime.Now.ToString(), FirebaseUser.Email);
 			if (messages != null)
             {
 				messages.Add(newMessage);
@@ -274,7 +272,7 @@ namespace Test_For_Login
 
 		private async void UserPanel_Load(object sender, EventArgs e)
 		{
-			AccountInfo accountData = await databaseHandler.Child("accounts").Child(firebaseUser.LocalId).Child("accountInfo").OrderByKey().OnceSingleAsync<AccountInfo>();
+			AccountInfo accountData = await databaseHandler.Child("accounts").Child(FirebaseUser.LocalId).Child("accountInfo").OrderByKey().OnceSingleAsync<AccountInfo>();
 			
 			feedbackText = feedbackBox.Text;
 			this.FormClosing += UserPanel_FormClosing;
@@ -283,13 +281,13 @@ namespace Test_For_Login
 			{
 				panel2.Visible = true;
 				panel2.Location = new Point(11, 26);
-				accountInfoLabel.Text = $"Signed in as {firebaseUser.Email}";
+				accountInfoLabel.Text = $"Signed in as {FirebaseUser.Email}";
 				ShowUserFeedbackAsync();
 			}else if(accountData.accountType == "Admin")
 			{		
 				panel3.Visible = true;
 				panel3.Location = new Point(11, 26);
-				adminSignedInLabel.Text = $"Signed in as Admin with {firebaseUser.Email}";
+				adminSignedInLabel.Text = $"Signed in as Admin with {FirebaseUser.Email}";
 				RenderAdminMsgs();
 			}
 		}
