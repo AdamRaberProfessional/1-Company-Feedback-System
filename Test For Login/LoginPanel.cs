@@ -11,6 +11,8 @@ namespace Test_For_Login
 {
     public partial class LoginPanel : Form
     {
+        public static bool devMode { get; set; } = true;
+
         // Initialize firebase auth and create ability to get the current firebaseUser anywhere in the application.
         private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
         private readonly FirebaseClient databaseHandler = new FirebaseClient("https://cis-attempt-1-default-rtdb.firebaseio.com/");
@@ -19,8 +21,7 @@ namespace Test_For_Login
 
         private Firebase.Auth.User firebaseUser;
         private bool exitApplication = true;
-        public static bool devMode { get; set; } = true;
-
+        
         public LoginPanel()
         {
             InitializeComponent();
@@ -42,7 +43,11 @@ namespace Test_For_Login
                 List<CompanyMessage> messages = await databaseHandler.Child("adminMessages").OnceSingleAsync<List<CompanyMessage>>();
 
                 //shows most recent admin message
-                MessageBox.Show(messages[messages.Count() - 1].message, "Message from your Admin", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if(messages != null)
+                {
+                    // show the last message with the title "Message from your Admin"
+                    MessageBox.Show(messages[messages.Count() - 1].message, "Message from your Admin", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }else if(accountData.accountType == "Admin")
             {
                 userPanel.Size = new Size(319, 362);

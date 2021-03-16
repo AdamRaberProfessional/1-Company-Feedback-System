@@ -28,7 +28,6 @@ C:\Users\acrab\DotNetProjects\FeedBackPrototype\Test For Login\bin\Debug\Test Fo
 C:\Users\acrab\DotNetProjects\FeedBackPrototype\Test For Login\bin\Debug\Test For Login.exe
 C:\Users\acrab\DotNetProjects\FeedBackPrototype\Test For Login\bin\Debug\Test For Login.pdb
 C:\Users\acrab\DotNetProjects\FeedBackPrototype\Test For Login\bin\Debug\Firebase.Auth.dll
-C:\Users\acrab\DotNetProjects\FeedBackPrototype\Test For Login\bin\Debug\FireSharp.dll
 C:\Users\acrab\DotNetProjects\FeedBackPrototype\Test For Login\bin\Debug\Microsoft.Threading.Tasks.dll
 C:\Users\acrab\DotNetProjects\FeedBackPrototype\Test For Login\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.dll
 C:\Users\acrab\DotNetProjects\FeedBackPrototype\Test For Login\bin\Debug\Microsoft.Threading.Tasks.Extensions.dll

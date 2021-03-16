@@ -8,6 +8,7 @@ namespace Test_For_Login
 {
 	class AccountInfo
 	{
+		// Class for catching Account Info data from firebase.
 		public string emailAddress { get; set; }
 		public string accountType { get; set; }
 		public AccountInfo(string email, string acctType)
@@ -19,6 +20,7 @@ namespace Test_For_Login
 
 	class CompanyMessage
 	{
+		// Class for catching Company Message data from firebase.
 		public string message {get; set;}
 		public string dateCreated {get; set; }
 		public string email { get; set; }
@@ -33,6 +35,7 @@ namespace Test_For_Login
 
 	public class FeedbackMessage 
 	{
+		// Class for catching Feedback Message data from firebase
 		public string message { get; set; }
 		public string dateCreated { get; set; }
 		public Boolean anonymous { get; set; }
@@ -45,6 +48,5 @@ namespace Test_For_Login
 			email = emailAddr;
 			anonymous = isAnonymous;
         }
-
 	}
 }
