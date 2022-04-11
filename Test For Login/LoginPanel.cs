@@ -14,8 +14,8 @@ namespace Test_For_Login
         public static bool devMode { get; set; } = true;
 
         // Initialize firebase auth and create ability to get the current firebaseUser anywhere in the application.
-        private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
-        private readonly FirebaseClient databaseHandler = new FirebaseClient("https://cis-attempt-1-default-rtdb.firebaseio.com/");
+        private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyDwSFECwPpPmv8e9c9ycFio6LV6ulLa_fs"));
+        private readonly FirebaseClient databaseHandler = new FirebaseClient("https://dotnet-project-3f3cf-default-rtdb.firebaseio.com/");
 
         private string pageState = "signIn";
 
@@ -30,7 +30,7 @@ namespace Test_For_Login
         private async void UserSignedInAsync()
         {
             UserPanel userPanel = new UserPanel();
-            userPanel.firebaseUser = firebaseUser;
+            userPanel.FirebaseUser = firebaseUser;
             AccountInfo accountData = await databaseHandler.Child("accounts").Child(firebaseUser.LocalId).Child("accountInfo").OrderByKey().OnceSingleAsync<AccountInfo>();
 
             if (accountData.accountType == "User")

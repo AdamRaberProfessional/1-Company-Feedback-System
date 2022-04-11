@@ -104,3 +104,55 @@ C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test_For_Log
 C:\Users\johnd\source\repos\Test For Login\Test For Login\obj\Debug\Test_For_Login.UserPanel.resources
 C:\Users\acrab\DotNetProjects\FeedBackPrototype\Test For Login\obj\Debug\Test_For_Login.UserPanel.resources
 C:\Users\acrab\DotNetProjects\FeedBackPrototype\Test For Login\obj\Debug\Test_For_Login.LoginPanel.resources
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\obj\Debug\Test For Login.csproj.AssemblyReference.cache
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\obj\Debug\Test_For_Login.UserPanel.resources
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\obj\Debug\Test_For_Login.LoginPanel.resources
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\obj\Debug\Test_For_Login.Properties.Resources.resources
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\obj\Debug\Test For Login.csproj.GenerateResource.cache
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\obj\Debug\Test For Login.csproj.CoreCompileInputs.cache
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\obj\Debug\Test For Login.exe
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\obj\Debug\Test For Login.pdb
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Test For Login.exe.config
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Test For Login.exe
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Test For Login.pdb
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Firebase.Auth.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Firebase.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\LiteDB.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Microsoft.Threading.Tasks.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Microsoft.Threading.Tasks.Extensions.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Newtonsoft.Json.Bson.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Newtonsoft.Json.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Newtonsoft.Json.Schema.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\System.Buffers.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\System.Memory.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\System.Net.Http.Extensions.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\System.Net.Http.Primitives.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\System.Numerics.Vectors.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\System.Reactive.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Firebase.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\LiteDB.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Microsoft.IdentityModel.Logging.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Microsoft.Threading.Tasks.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Microsoft.Threading.Tasks.Extensions.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Newtonsoft.Json.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Newtonsoft.Json.Bson.pdb
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Newtonsoft.Json.Bson.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\Newtonsoft.Json.Schema.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\System.Buffers.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\System.Memory.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\System.Net.Http.Extensions.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\System.Net.Http.Primitives.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\System.Numerics.Vectors.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\System.Reactive.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Software\DotNetFront\1-Company-Feedback-System\Test For Login\obj\Debug\Test For Login.csproj.CopyComplete

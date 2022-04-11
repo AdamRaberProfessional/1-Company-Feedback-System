@@ -20,8 +20,8 @@ namespace Test_For_Login
 	public partial class UserPanel : Form
 	{
 		// Initialize firebase auth and create ability to get the current firebaseUser anywhere in the application.
-		private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyAsFiSNedHZ6LohezUzZ-Y7FoflxRZmwWA"));
-		private readonly FirebaseClient databaseHandler = new FirebaseClient("https://cis-attempt-1-default-rtdb.firebaseio.com/");
+		private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyDwSFECwPpPmv8e9c9ycFio6LV6ulLa_fs"));
+		private readonly FirebaseClient databaseHandler = new FirebaseClient("https://dotnet-project-3f3cf-default-rtdb.firebaseio.com/");
 		private readonly SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
 		{
 			Port = 587,
@@ -75,7 +75,7 @@ namespace Test_For_Login
                 }
 				await databaseHandler.Child("Messages").PutAsync(msgList);
 			}
-
+			/*
 			MailMessage mailMessage = new MailMessage
 			{
 				From = new MailAddress("cis340adam@gmail.com"),
@@ -92,7 +92,7 @@ namespace Test_For_Login
             {
 				mailMessage.Body = "Thank you for your input to the company! You chose to send it non-anonymously. Here is the message that you sent: \n\n" +
 				$"{feedbackBox.Text} \n\nFeedback sent {DateTime.Now.ToString()}";
-			}
+			}*/
 
 			feedbackBox.Text = "What's one thing you like about working here?\n\n\nWhats one thing we can improve, and how can we improve it?\n\n\nAny other suggestions?";
 			ShowUserFeedbackAsync();
@@ -106,9 +106,9 @@ namespace Test_For_Login
 			}
 			anonymousCheckBox.Checked = false;
 
-			mailMessage.To.Add(FirebaseUser.Email);
+			//mailMessage.To.Add(FirebaseUser.Email);
 
-			smtpClient.Send(mailMessage);		
+			//smtpClient.Send(mailMessage);		
 		}
 
 		private void SignUserOut()
