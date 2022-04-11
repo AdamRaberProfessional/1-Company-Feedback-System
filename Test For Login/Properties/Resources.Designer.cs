@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Test_For_Login.Properties
+namespace Company_Feedback_System.Properties
 {
 
 

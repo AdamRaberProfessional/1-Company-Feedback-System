@@ -15,7 +15,7 @@ using System.Net;
 
 
 
-namespace Test_For_Login
+namespace Company_Feedback_System
 {
 	public partial class UserPanel : Form
 	{

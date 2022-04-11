@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test_For_Login
+namespace Company_Feedback_System
 {
 	class AccountInfo
 	{

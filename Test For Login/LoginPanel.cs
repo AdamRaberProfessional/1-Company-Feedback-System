@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Test_For_Login
+namespace Company_Feedback_System
 {
     public partial class LoginPanel : Form
     {

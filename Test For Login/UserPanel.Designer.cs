@@ -1,4 +1,4 @@
-﻿namespace Test_For_Login
+﻿namespace Company_Feedback_System
 {
 	partial class UserPanel
 	{

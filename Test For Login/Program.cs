@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Test_For_Login
+namespace Company_Feedback_System
 {
 	static class Program
 	{
